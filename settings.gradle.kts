@@ -1,4 +1,4 @@
-rootProject.name = "Ppm_android"
+rootProject.name = "Ppm"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
@@ -33,3 +33,4 @@ plugins {
 }
 
 include(":composeApp")
+include(":shared")
