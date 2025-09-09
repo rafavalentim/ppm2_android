@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/item_home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/item_home" />
+
+        <item
+            android:id="@+id/item_mcu"
+            android:icon="@drawable/ic_settings_cell"
+            android:title="@string/item_mcu"/>
+
+        <item
+            android:id="@+id/item_menu_button"
+            android:icon="@drawable/ic_smart_button"
+            android:title="@string/label_exemplo_botoes"
+            android:visible="false"/>
+
+        <item
+            android:id="@+id/item_input_text"
+            android:icon="@drawable/ic_font_download"
+            android:title="@string/label_exemplo_input"
+            android:visible="false"/>
+
+        <item
+            android:id="@+id/item_text_field"
+            android:icon="@drawable/ic_text_fields"
+            android:title="@string/exempos_de_texto"
+            android:visible="false"/>
+
+        <item
+            android:id="@+id/item_bottom_navigation"
+            android:icon="@drawable/ic_settings_cell"
+            android:title="@string/exemplo_bottom_navigation"
+            android:visible="false"/>
+
+        <item
+            android:id="@+id/item_tabs"
+            android:icon="@drawable/ic_tab"
+            android:title="@string/exemplo_abas"
+            android:visible="false"/>
+
+        <item
+            android:id="@+id/item_selection"
+            android:icon="@drawable/ic_toggle_on"
+            android:title="@string/exemplo_selecao"
+            android:visible="false"/>
+
+        <item
+            android:id="@+id/item_bottomsheet"
+            android:icon="@drawable/ic_list"
+            android:title="@string/exemple_bottom_sheet"
+            android:visible="false"/>
+
+        <item
+            android:id="@+id/item_fab"
+            android:icon="@drawable/ic_add_circle"
+            android:title="@string/exemplo_fab"
+            android:visible="false"/>
+
+        <item
+            android:id="@+id/item_date"
+            android:icon="@drawable/ic_today"
+            android:title="@string/item_menu_date"
+            android:visible="false"/>
+
+        <item
+            android:id="@+id/item_chip"
+            android:icon="@drawable/ic_label"
+            android:title="@string/item_menu_chips"
+            android:visible="false"/>
+
+        <item
+            android:id="@+id/item_icones"
+            android:icon="@drawable/ic_insert_emoticon"
+            android:title="@string/item_menu_icones_correios"
+            android:visible="false"/>
+
+        <item
+            android:id="@+id/item_snackbar"
+            android:icon="@drawable/ic_call_to_action"
+            android:title="@string/menu_exemplos_snackbar"
+            android:visible="false"/>
+
+        <item
+            android:id="@+id/item_slider"
+            android:icon="@drawable/ic_linear_scale"
+            android:title="@string/menu_exemplo_slider"
+            android:visible="false"/>
+
+        <item
+            android:id="@+id/item_dialog"
+            android:icon="@drawable/ic_announcement"
+            android:title="@string/menu_exemplo_dialog"
+            android:visible="false"/>
+    </group>
+</menu>
