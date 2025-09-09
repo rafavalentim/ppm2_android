@@ -17,10 +17,25 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.graphicsLayer
+import cafe.adriel.voyager.core.screen.Screen
+import org.koin.core.Koin
+
+
+class SplashScreen(val koin : Koin) : Screen{
+
+    @Composable
+    override fun Content() {
+        SplashMainScreen(koin)
+    }
+
+
+}
 
 
 @Composable
-fun SplashMainScreen() {
+fun SplashMainScreen(
+    koin : Koin
+) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize()

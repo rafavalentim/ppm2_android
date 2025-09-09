@@ -14,7 +14,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            SplashMainScreen()
+            App()
         }
     }
 }
@@ -22,6 +22,5 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun AppAndroidPreview() {
-    //App()
-    SplashMainScreen()
+    App()
 }
