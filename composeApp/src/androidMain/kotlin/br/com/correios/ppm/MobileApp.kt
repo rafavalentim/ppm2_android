@@ -1,6 +1,7 @@
 package br.com.correios.ppm
 
 import android.app.Application
+import br.com.correios.ppm.di.databaseModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -18,11 +19,11 @@ class MobileApp : Application() {
 
     //Inicializando o koin no contexto da aplicação.
     private fun initKoin(){
-       // val modules = sharedKoinModules + viewModelsModule + databaseModule
+        val modules = databaseModule
 
         startKoin {
             androidContext(this@MobileApp)
-          //  modules(modules)
+            modules(modules)
         }
     }
 
