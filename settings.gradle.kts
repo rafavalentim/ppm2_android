@@ -1,4 +1,4 @@
-rootProject.name = "Ppm"
+rootProject.name = "Ppm_kmp"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
@@ -33,4 +33,3 @@ plugins {
 }
 
 include(":composeApp")
-include(":shared")

@@ -1,5 +1,7 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -7,6 +9,8 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
+    alias(libs.plugins.sqlDelight)
+    id("org.jetbrains.kotlin.plugin.serialization") version libs.versions.kotlin
 }
 
 kotlin {
@@ -16,23 +20,70 @@ kotlin {
         }
     }
     
+    listOf(
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "ComposeApp"
+            isStatic = true
+        }
+    }
+    
     jvm()
+    
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        browser()
+        binaries.executable()
+    }
     
     sourceSets {
         androidMain.dependencies {
             implementation(compose.preview)
+            implementation(compose.uiTooling)
             implementation(libs.androidx.activity.compose)
+
+            implementation(libs.androidx.lifecycle.viewmodel.ktx)
+            implementation(libs.ktor.client.android)
+            implementation(libs.sql.android.driver)
         }
         commonMain.dependencies {
+
+            //Compose
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
+            implementation(compose.materialIconsExtended)
+
+            //AndroidX
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
-            implementation(projects.shared)
+
+            //ktor
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
+
+            //coroutines
+            implementation(libs.kotlinx.datetime)
+            implementation(libs.sql.coroutines.extensions)
+            implementation(libs.kotlinx.coroutines.core)
+
+            //koin
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+
+            //Kamel (Questões de AsyncImages)
+            implementation(libs.kamel.image)
+
+            //Voyager (Navegação entre telas)
+            implementation(libs.voyager.navigator)
+            implementation(libs.voyager.transitions)
+
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -40,6 +91,18 @@ kotlin {
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutinesSwing)
+
+            implementation(libs.ktor.client.cio)
+            implementation(libs.sql.desktop.driver)
+        }
+
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
+            implementation(libs.sql.native.driver)
+        }
+
+        wasmJsMain.dependencies {
+            implementation(libs.ktor.client.js)
         }
     }
 }
@@ -66,17 +129,21 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }
 
 dependencies {
     debugImplementation(compose.uiTooling)
-    implementation(libs.compose.ui)
-    implementation(libs.compose.material3)
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.koin.android)
+}
+
+sqldelight {
+    databases {
+        create(name = "LogDatabase") {
+            packageName.set("br.com.correios.ppm")
+        }
+    }
 }
 
 compose.desktop {

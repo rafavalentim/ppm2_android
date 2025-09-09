@@ -12,10 +12,6 @@ This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop (JVM
 * [/iosApp](./iosApp/iosApp) contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform,
   you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
 
-* [/shared](./shared/src) is for the code that will be shared between all targets in the project.
-  The most important subfolder is [commonMain](./shared/src/commonMain/kotlin). If preferred, you
-  can add code to the platform-specific folders here too.
-
 ### Build and Run Android Application
 
 To build and run the development version of the Android app, use the run configuration from the run widget
@@ -46,21 +42,14 @@ in your IDE’s toolbar or run it directly from the terminal:
 
 To build and run the development version of the web app, use the run configuration from the run widget
 in your IDE’s toolbar or run it directly from the terminal:
-1. Install [Node.js](https://nodejs.org/en/download) (which includes `npm`)
-2. Build Kotlin/JS shared code:
-   - on macOS/Linux
-     ```shell
-     ./gradlew :shared:jsBrowserDevelopmentLibraryDistribution
-     ```
-   - on Windows
-     ```shell
-     .\gradlew.bat :shared:jsBrowserDevelopmentLibraryDistribution
-     ```
-3. Build and run the web application
-   ```shell
-   npm install
-   npm run start
-   ```
+- on macOS/Linux
+  ```shell
+  ./gradlew :composeApp:wasmJsBrowserDevelopmentRun
+  ```
+- on Windows
+  ```shell
+  .\gradlew.bat :composeApp:wasmJsBrowserDevelopmentRun
+  ```
 
 ### Build and Run iOS Application
 
@@ -69,4 +58,9 @@ in your IDE’s toolbar or open the [/iosApp](./iosApp) directory in Xcode and r
 
 ---
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html),
+[Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/#compose-multiplatform),
+[Kotlin/Wasm](https://kotl.in/wasm/)…
+
+We would appreciate your feedback on Compose/Web and Kotlin/Wasm in the public Slack channel [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web).
+If you face any issues, please report them on [YouTrack](https://youtrack.jetbrains.com/newIssue?project=CMP).
