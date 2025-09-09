@@ -103,6 +103,15 @@ kotlin {
 
         wasmJsMain.dependencies {
             implementation(libs.ktor.client.js)
+
+            implementation(libs.runtime.wasm.js)
+            implementation(libs.web.worker.driver.wasm.js)
+
+            // NPM do worker SQL.js (usado pelo driver)
+            implementation(devNpm("@cashapp/sqldelight-sqljs-worker", "2.1.0"))
+            // Se o seu setup usar webpack, a doc recomenda também:
+            implementation(devNpm("copy-webpack-plugin", "9.1.0"))
+
         }
     }
 }

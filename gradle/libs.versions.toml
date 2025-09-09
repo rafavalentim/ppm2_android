@@ -57,6 +57,7 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
 
 # SQL Delight (Prover criação, drivers e acesso a banco de dados interno na aplicação)
+runtime-wasm-js = { module = "app.cash.sqldelight:runtime-wasm-js", version.ref = "sqlDelight" }
 sql-coroutines-extensions = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqlDelight" }
 sql-native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
 sql-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqlDelight" }
@@ -68,6 +69,7 @@ kamel-image = { module = "media.kamel:kamel-image", version.ref = "kamelImage" }
 # Voyager (Navegação entre telas)
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyagerVersion" }
 voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyagerVersion" }
+web-worker-driver-wasm-js = { module = "app.cash.sqldelight:web-worker-driver-wasm-js", version.ref = "sqlDelight" }
 
 
 [plugins]
