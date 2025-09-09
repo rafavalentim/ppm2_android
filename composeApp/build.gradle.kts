@@ -1,6 +1,8 @@
+import org.gradle.kotlin.dsl.withType
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
@@ -36,6 +38,13 @@ kotlin {
     wasmJs {
         browser()
         binaries.executable()
+    }
+
+    // aplica o -lsqlite3 a todos os binários nativos (inclui iOS)
+    targets.withType<KotlinNativeTarget>().configureEach {
+        binaries.all {
+            linkerOpts("-lsqlite3")
+        }
     }
     
     sourceSets {
