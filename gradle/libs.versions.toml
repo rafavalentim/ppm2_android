@@ -11,6 +11,7 @@ compose = "1.9.0"
 compose-material3 = "1.3.2"
 kotlin = "2.2.10"
 kotlinx-coroutines = "1.10.2"
+kotlinxBrowser = "0.5.0"
 kotlinxDatetime = "0.7.1"
 ktorClient = "3.2.3"
 koin = "4.1.1"
@@ -29,6 +30,7 @@ androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
 
 # Coroutines
+kotlinx-browser = { module = "org.jetbrains.kotlinx:kotlinx-browser", version.ref = "kotlinxBrowser" }
 kotlinx-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 
@@ -44,6 +46,9 @@ kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.
 
 # Ktor (Acesso à api's )
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClient" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorClient" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktorClient" }
+ktor-serialization-gson = { module = "io.ktor:ktor-serialization-gson", version.ref = "ktorClient" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorClient" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorClient" }
 ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktorClient" }

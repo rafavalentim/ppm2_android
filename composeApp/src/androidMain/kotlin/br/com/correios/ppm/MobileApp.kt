@@ -1,8 +1,11 @@
 package br.com.correios.ppm
 
 import android.app.Application
+import android.app.Dialog
+import android.content.Context
 import br.com.correios.ppm.di.databaseModule
 import br.com.correios.ppm.di.sharedModules
+import br.com.correios.ppm.login.application.Usuario
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -27,5 +30,40 @@ class MobileApp : Application() {
             modules(modules)
         }
     }
+
+
+    companion object {
+        lateinit var context: Context
+
+        const val INTENT_EXTRA_VERSION_APP: String = "extra_version_app"
+        var PREF_USERNAME: String = "pref_username"
+        const val DYNAMIC_FEATURE_WMS: String = "wms"
+        const val URL_PROXY_APP: String = BuildConfig.BASE_URL
+        const val PREF_COOKIE: String = "session_cookie"
+        const val DOWNLOAD_VERSION_PATH: String = "lojaapp/v1/aplicativos/{app}/versoes/{versao}/file"
+        const val PREF_DEFAUL_NAME: String = "pref_app_operacional"
+        const val MCU: String = "mcu_cadastrado"
+        val REMEMBER_LOGIN: String = "remember_login"
+        const val TAG: String = "log"
+
+        @JvmStatic
+        var usuario: Usuario? = null
+
+        @JvmStatic
+        var dialog: Dialog? = null
+
+        @JvmStatic
+        var applicationId: String? = null
+
+        @JvmStatic
+        fun getAppContext(): Context {
+            return context
+        }
+    }
+
+
+
+
+
 
 }

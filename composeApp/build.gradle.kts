@@ -55,6 +55,7 @@ kotlin {
 
             implementation(libs.androidx.lifecycle.viewmodel.ktx)
             implementation(libs.ktor.client.android)
+            implementation(libs.ktor.client.okhttp)
             implementation(libs.sql.android.driver)
         }
         commonMain.dependencies {
@@ -75,6 +76,8 @@ kotlin {
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.ktor.client.logging)
+
 
             //coroutines
             implementation(libs.kotlinx.datetime)
@@ -102,6 +105,7 @@ kotlin {
             implementation(libs.kotlinx.coroutinesSwing)
 
             implementation(libs.ktor.client.cio)
+            implementation(libs.ktor.client.okhttp)
             implementation(libs.sql.desktop.driver)
         }
 
@@ -115,6 +119,8 @@ kotlin {
 
             implementation(libs.runtime.wasm.js)
             implementation(libs.web.worker.driver.wasm.js)
+            implementation(libs.kotlinx.browser) // verifique versão mais nova
+
 
             // NPM do worker SQL.js (usado pelo driver)
             implementation(devNpm("@cashapp/sqldelight-sqljs-worker", "2.1.0"))
@@ -135,20 +141,21 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
+        buildConfigField("String", "BASE_URL", "\"https://applogisticahom.correios.com.br/\"")
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-        }
+
+    buildFeatures {
+        buildConfig = true
     }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 }
 
