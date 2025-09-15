@@ -3,10 +3,13 @@ package br.com.correios.ppm.data
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import br.com.correios.ppm.config.AppContext
 
-actual class KeyValueStorage(context: Context) {
-    private val prefs: SharedPreferences =
-        context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+actual class KeyValueStorage actual constructor() {
+    private val prefs: SharedPreferences by lazy {
+        val ctx: Context = AppContext.appContext
+        ctx.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+    }
 
     actual fun putString(key: String, value: String) {
         prefs.edit { putString(key, value) }

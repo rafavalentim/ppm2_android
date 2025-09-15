@@ -17,8 +17,18 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.graphicsLayer
+import br.com.correios.ppm.splash.presentation.SplashScreenViewModel
+import br.com.correios.ppm.splash.presentation.UsuarioUiState
+import br.com.correios.ppm.ui.screens.login.LoginScreen
+import br.com.correios.ppm.ui.screens.main.MainScreen
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import kotlinx.coroutines.delay
 import org.koin.core.Koin
+import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.first
 
 
 class SplashScreen(val koin : Koin) : Screen{
@@ -27,15 +37,18 @@ class SplashScreen(val koin : Koin) : Screen{
     override fun Content() {
         SplashMainScreen(koin)
     }
-
-
 }
 
 
 @Composable
 fun SplashMainScreen(
-    koin : Koin
+    koin: Koin,
+    splashScreenViewModel: SplashScreenViewModel = koin.get()
 ) {
+    val navigator = LocalNavigator.currentOrThrow
+    val usuarioState by splashScreenViewModel.uiState.collectAsState()
+
+    // UI do splash (seu layout atual)
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize()
@@ -45,15 +58,42 @@ fun SplashMainScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-//            CircularProgressIndicator(modifier = Modifier.width(64.dp))
             Spacer(Modifier.height(24.dp))
-
             BouncyImage(
                 painter = painterResource(Res.drawable.icone),
                 contentDescription = "correios",
-                amplitudeDp = 18,      // altura do “pulo”
-                cycleDurationMs = 900  // duração do ciclo completo
+                amplitudeDp = 18,
+                cycleDurationMs = 900
             )
+        }
+    }
+
+    // Navegação após: (tempo mínimo de 5s) E (estado != Loading)
+    LaunchedEffect(Unit) {
+        // roda em paralelo
+        val minDelay = async { delay(5_000) }
+        val finalStateDeferred = async {
+            splashScreenViewModel.uiState
+                .filter { it !is UsuarioUiState.Loading }
+                .first() // espera sair do Loading
+        }
+
+        val finalState = finalStateDeferred.await()
+        minDelay.await() // garante os 5s mínimos
+
+        when (finalState) {
+            is UsuarioUiState.Error -> {
+                navigator.replaceAll(LoginScreen(koin))
+            }
+            is UsuarioUiState.Success -> {
+                val destino = if (finalState.usuario?.login.isNullOrEmpty()) {
+                    LoginScreen(koin)
+                } else {
+                    MainScreen(koin)
+                }
+                navigator.replaceAll(destino)
+            }
+            UsuarioUiState.Loading -> Unit // não deve cair aqui
         }
     }
 }

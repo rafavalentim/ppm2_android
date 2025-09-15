@@ -2,7 +2,7 @@ package br.com.correios.ppm
 
 import android.app.Application
 import android.app.Dialog
-import android.content.Context
+import br.com.correios.ppm.config.AppContext
 import br.com.correios.ppm.di.databaseModule
 import br.com.correios.ppm.di.sharedModules
 import br.com.correios.ppm.login.application.Usuario
@@ -18,6 +18,7 @@ class MobileApp : Application() {
     override fun onCreate() {
         super.onCreate()
         initKoin()
+        AppContext.appContext = applicationContext
 
     }
 
@@ -33,7 +34,6 @@ class MobileApp : Application() {
 
 
     companion object {
-        lateinit var context: Context
 
         const val INTENT_EXTRA_VERSION_APP: String = "extra_version_app"
         var PREF_USERNAME: String = "pref_username"
@@ -54,16 +54,5 @@ class MobileApp : Application() {
 
         @JvmStatic
         var applicationId: String? = null
-
-        @JvmStatic
-        fun getAppContext(): Context {
-            return context
-        }
     }
-
-
-
-
-
-
 }
