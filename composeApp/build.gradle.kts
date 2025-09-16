@@ -72,7 +72,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
 
-            //ktor
+            //ktor (Acesso às api's em substituição ao Retrofit)
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
@@ -84,7 +84,7 @@ kotlin {
             implementation(libs.sql.coroutines.extensions)
             implementation(libs.kotlinx.coroutines.core)
 
-            //koin
+            //koin (Injeção de dependência alternativa ao Hilt que não funciona no kmp)
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
 

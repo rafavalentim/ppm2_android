@@ -11,6 +11,7 @@ pluginManagement {
             }
         }
         mavenCentral()
+        google()
         gradlePluginPortal()
     }
 }
@@ -25,6 +26,8 @@ dependencyResolutionManagement {
             }
         }
         mavenCentral()
+        google()
+        gradlePluginPortal()
     }
 }
 

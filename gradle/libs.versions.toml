@@ -3,17 +3,18 @@ agp = "8.13.0"
 android-compileSdk = "36"
 android-minSdk = "24"
 android-targetSdk = "36"
-androidx-activity = "1.10.1"
+androidx-activity = "1.11.0"
 androidx-lifecycle = "2.9.3"
-composeHotReload = "1.0.0-beta06"
-composeMultiplatform = "1.8.2"
-compose = "1.9.0"
+composeHotReload = "1.0.0-beta07"
+composeMultiplatform = "1.9.0"
+compose = "1.9.1"
 compose-material3 = "1.3.2"
-kotlin = "2.2.10"
+kotlin = "2.2.20"
 kotlinx-coroutines = "1.10.2"
 kotlinxBrowser = "0.5.0"
 kotlinxDatetime = "0.7.1"
-ktorClient = "3.2.3"
+kotlinxJs = "1.0.1"
+ktorClient = "3.3.0"
 koin = "4.1.1"
 sqlDelight = "2.1.0"
 kamelImage = "1.0.7"
@@ -45,6 +46,7 @@ compose-material3 = { module = "androidx.compose.material3:material3", version.r
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 
 # Ktor (Acesso à api's )
+kotlinx-js = { module = "org.jetbrains.kotlinx:kotlinx-js", version.ref = "kotlinxJs" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClient" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorClient" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktorClient" }
