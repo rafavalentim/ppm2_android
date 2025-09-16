@@ -18,4 +18,12 @@ actual class KeyValueStorage actual constructor() {
     actual fun getString(key: String, defaultValue: String?): String? {
         return prefs.getString(key, defaultValue)
     }
+
+    actual fun putBoolean(key: String, value: Boolean) {
+        prefs.edit{ putBoolean(key, value) }
+    }
+
+    actual fun getBoolean(key: String,value: Boolean?): Boolean? {
+       return value?.let { prefs.getBoolean(key, it) }
+    }
 }

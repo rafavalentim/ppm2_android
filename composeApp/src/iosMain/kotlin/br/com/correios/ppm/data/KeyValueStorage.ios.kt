@@ -12,4 +12,12 @@ actual class KeyValueStorage {
     actual fun getString(key: String, defaultValue: String?): String? {
         return defaults.stringForKey(key) ?: defaultValue
     }
+
+    actual fun putBoolean(key: String, value: Boolean) {
+        defaults.setObject(value, forKey = key)
+    }
+
+    actual fun getBoolean(key: String, value: Boolean?): Boolean? {
+        return defaults.boolForKey(key)
+    }
 }

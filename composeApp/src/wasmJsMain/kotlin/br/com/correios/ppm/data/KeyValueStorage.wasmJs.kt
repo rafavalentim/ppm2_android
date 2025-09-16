@@ -13,4 +13,12 @@ actual class KeyValueStorage {
     actual fun getString(key: String, defaultValue: String?): String? {
         return storage.getItem(key) ?: defaultValue
     }
+
+    actual fun putBoolean(key: String, value: Boolean) {
+        storage.setItem(key, value.toString())
+    }
+
+    actual fun getBoolean(key: String, value: Boolean?): Boolean? {
+        return (storage.getItem(key) ?: value) as Boolean?
+    }
 }

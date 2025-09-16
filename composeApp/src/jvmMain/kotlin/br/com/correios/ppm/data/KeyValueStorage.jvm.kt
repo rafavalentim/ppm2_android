@@ -14,4 +14,13 @@ actual class KeyValueStorage {
     actual fun getString(key: String, defaultValue: String?): String? {
         return prefs.get(key, defaultValue)
     }
+
+    actual fun putBoolean(key: String, value: Boolean) {
+        prefs.putBoolean(key, value)
+        prefs.flush()
+    }
+
+    actual fun getBoolean(key: String, value: Boolean?): Boolean? {
+        return value?.let { prefs.getBoolean(key, it) }
+    }
 }
