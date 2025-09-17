@@ -17,6 +17,8 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
@@ -27,6 +29,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -39,6 +42,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import br.com.correios.ppm.login.presentation.AutenticacaoUiState
 import br.com.correios.ppm.login.presentation.LoginViewModel
+import kotlinx.coroutines.flow.collectLatest
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -167,11 +171,31 @@ fun SwitchWithIconExample(viewModel: LoginViewModel) {
 }
 
 @Composable
-fun DefaultButton(description: String, viewModel: LoginViewModel){
+fun DefaultButton(
+    description: String,
+    viewModel: LoginViewModel){
+
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+
+    // Colete os eventos da ViewModel e mostre o snackbar
+    LaunchedEffect(Unit) {
+        viewModel.events.collectLatest { event ->
+            when (event) {
+                is UiEvent.ShowMessage -> {
+                    snackbarHostState.showSnackbar(
+                        message = event.message,
+                        actionLabel = event.actionLabel
+                    )
+                }
+            }
+        }
+    }
+
     Box(modifier = Modifier.fillMaxWidth()) {
         Button(
             onClick = {
-                //viewModel.onLoginClick() //IMPLEMENTAR DEPOIS.
+                viewModel.onLoginClick()
             },
             shape = RoundedCornerShape(8.dp),
             elevation = ButtonDefaults.elevatedButtonElevation(

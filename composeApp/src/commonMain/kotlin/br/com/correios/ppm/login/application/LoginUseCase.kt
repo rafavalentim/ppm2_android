@@ -2,6 +2,7 @@ package br.com.correios.ppm.login.application
 
 import br.com.correios.ppm.login.data.AutenticacaoRaw
 import br.com.correios.ppm.login.data.LoginRepository
+import br.com.correios.ppm.login.data.TokenResponse
 import br.com.correios.ppm.login.data.UsuarioRaw
 
 class LoginUseCase(private val repo : LoginRepository) {
@@ -41,4 +42,14 @@ class LoginUseCase(private val repo : LoginRepository) {
 
         return mapToUsuario(usuarioRaw)
     }
+
+    suspend fun autenticar(autenticacao: Autenticacao): TokenResponse?{
+
+        val raw = mapToAutenticacaoRaw(autenticacao)
+
+        val token = repo.autenticar(raw)
+
+        return token
+    }
+
 }
