@@ -27,6 +27,15 @@ class LoginViewModel(
     private val _token = MutableStateFlow<TokenResponse?>(null)
     val token : StateFlow<TokenResponse?> = _token.asStateFlow()
 
+    private val _username = MutableStateFlow("")
+    val username = _username.asStateFlow()
+
+    fun onUsernameChanged(value: String) {
+        _username.value = value
+        // se precisar refletir em Autenticacao, faça aqui
+        // _autenticacao.update { it.copy(usuario = value) }
+    }
+
 
     private fun setarTokenSessao(tokenResponse: TokenResponse){
         tokenResponse.token?.let {
