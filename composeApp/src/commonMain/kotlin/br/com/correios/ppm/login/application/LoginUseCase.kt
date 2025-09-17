@@ -22,7 +22,6 @@ class LoginUseCase(private val repo : LoginRepository) {
         )
     }
 
-
     private fun mapToUsuario(raw : UsuarioRaw?) : Usuario? {
 
         return Usuario(
@@ -36,14 +35,10 @@ class LoginUseCase(private val repo : LoginRepository) {
         )
     }
 
-
-
     suspend fun fetchUsuarioLogado(): Usuario?{
 
         val usuarioRaw = repo.getUsuarioLogado()
 
         return mapToUsuario(usuarioRaw)
     }
-
-
 }

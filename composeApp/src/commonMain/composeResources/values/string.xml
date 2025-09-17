@@ -1,0 +1,157 @@
+<resources>
+    <string name="app_name">Correios LOG</string>
+    <string name="versao_text">"Versão: %s"</string>
+    <string name="label_aviso">Aviso</string>
+    <string name="msg_new_version">Uma nova versão do aplicativo está disponível! \nVersão : %s</string>
+    <string name="label_atualizar">Atualizar</string>
+    <string name="label_analisar">Análise</string>
+    <string name="msg_aguardando_download">Aguardando inicio do download...</string>
+    <string name="msg_realizando_download">Realizando o Download...</string>
+    <string name="msg_erro_download">Erro ao realizar o download da nova versão...</string>
+    <string name="title_nova_versao">Download nova versão...</string>
+    <string name="msg_user_invalido">Usuário ou senha inválidos.</string>
+    <string name="msg_erro_auth">Ops! aconteceu algum problema ao efetuar o login nos nossos servidores... Tente novamente mais tarde.</string>
+    <string name="msg_erro_busca_user">Ops! aconteceu algum problema ao buscar os dados do usuário... Tente novamente mais tarde.</string>
+    <string name="msg_field_nao_vazio">Campo não pode ser vazio.</string>
+    <string name="label_verificando">Verificando...</string>
+    <string name="label_entrar">entrar</string>
+    <string name="label_senha">senha</string>
+    <string name="label_matricula">matrícula</string>
+    <string name="exemplo_versao">V 0.2.2</string>
+    <string name="navigation_drawer_open">open menu</string>
+    <string name="navigation_drawer_close">close_menu</string>
+    <string name="item_home">Home</string>
+    <string name="nome_sistema">App Logística - Android</string>
+    <string name="label_sair">sair</string>
+    <string name="label_exemplo_botoes">Exemplos Botões</string>
+    <string name="msg_home_clicked">Ação home clicada</string>
+    <string name="title_activity_botoes">Botões</string>
+    <string name="subtitle_activity_botoes">Exemplos de estilo</string>
+    <string name="label_cancelar">cancelar</string>
+    <string name="label_confirmar">confirmar</string>
+    <string name="label_opcao_1">opção 1</string>
+    <string name="label_opcao_2">opção 2</string>
+    <string name="label_opcao_3">opção 3</string>
+    <string name="label_exemplo_input">Exemplo Input Texto</string>
+    <string name="title_activity_inputtext">InputText</string>
+    <string name="label_padrao">padrão</string>
+    <string name="label_padrao_icones">Padrão com ícones</string>
+    <string name="label_com_erro">Com erro</string>
+    <string name="helper_text">Texto de ajuda</string>
+    <string name="padrao_helper_text">padrão com texto de ajuda</string>
+    <string name="padrao_contador">padrão com contador</string>
+    <string name="exempos_de_texto">Exempos de texto</string>
+    <string name="title_activity_textfield">Textos</string>
+    <string name="label_headline1">Título1</string>
+    <string name="label_headline2">Título 2</string>
+    <string name="texto_lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi efficitur quis felis quis fermentum. Maecenas interdum metus et velit tincidunt, sed eleifend nisl vestibulum. Duis aliquet augue et pulvinar rhoncus. In gravida auctor dolor ut accumsan. Maecenas nec tellus sit amet tortor lacinia faucibus. Nullam quis felis in ante condimentum commodo vel non lacus. Sed porttitor purus quis arcu commodo auctor. Proin laoreet molestie sapien non vestibulum.</string>
+    <string name="title_activity_bottom_navigation_example">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_bottom_navigation_activity">Bottom Navigation</string>
+    <string name="exemplo_bottom_navigation">Exemplo Bottom Navigation</string>
+    <string name="title_activity_abas_exemplo">AbasExemploActivity</string>
+    <string name="exemplo_abas">Exemplo Abas</string>
+    <string name="exemplo_selecao">Exemplo Seleção</string>
+    <string name="title_selection_activity">Seleção</string>
+    <string name="msg_radio_button">%s selecionada</string>
+    <string name="msg_checkbox" formatted="false">%s is checked: %b</string>
+    <string name="exemple_bottom_sheet">Exemple Bottom Sheet</string>
+    <string name="title_activity_bottomsheet">Bottom Sheet</string>
+    <string name="subtitle_activity_bottomsheet">Exemplos de uso</string>
+    <string name="fab_content_description">Compartilhar</string>
+    <string name="fab_extended_text">Share</string>
+    <string name="data_selecionada">Data selecionada: %s</string>
+    <string name="msg_select_date">Selecione uma data</string>
+    <string name="texto_periodo" formatted="false">de %s até %s</string>
+    <string name="title_activity_datepicker">Date Picker</string>
+    <string name="subtitle_activity_datepicker">Exemplo de estilo e uso</string>
+    <string name="title_Activity_fab">Float Action Button</string>
+    <string name="exemplo_fab">Exemplo FAB</string>
+    <string name="item_menu_date">Exemplo DateTime picker</string>
+    <string name="item_menu_chips">Exemplo Chips</string>
+    <string name="title_activity_chips">Chips</string>
+    <string name="subtitle_activity_chips">Exemplos de estilo e uso</string>
+    <string name="label_tag_1">tag 1</string>
+    <string name="label_tag_2">Tag 2</string>
+    <string name="item_menu_icones_correios">Ícones Correios</string>
+    <string name="title_activity_icones">Ícones</string>
+    <string name="subtitle_activity_icones">Padrão Correios</string>
+    <string name="menu_exemplos_snackbar">Exemplos Snackbar</string>
+    <string name="title_Activity_sanckbar">Snackbar</string>
+    <string name="subtitle_activity_sanckbar">Exemplo de estilo e uso</string>
+    <string name="label_ocultar">Ocultar</string>
+    <string name="menu_exemplo_slider">Exemplo Slider</string>
+    <string name="title_activity_slider">Sliders</string>
+    <string name="subtitle_activity_slider">Exemplo de estilo e uso</string>
+    <string name="text_result_slider">valor: %f</string>
+    <string name="text_result_rageslider" formatted="false">valor inicial: %f | valor final: %f</string>
+    <string name="menu_exemplo_dialog">Exemplo Dialogs</string>
+    <string name="lorem_ipson_curto">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse suscipit tellus id euismod varius. Aenean tristique sit amet diam vel rutrum. In lorem libero, viverra nec dolor non, lacinia maximus lacus. Sed non tortor ut nulla vestibulum posuere nec sed mi. Nunc tristique justo sit amet ante rutrum ullamcorper a.</string>
+    <string name="label_recusar">Recusar</string>
+    <string name="label_aceitar">Aceitar</string>
+    <string name="label_choose_option">Escolha uma opção</string>
+    <string name="msg_dialog_simple">Selecionou posicão %d</string>
+    <string name="title_activity_dialog">Dialogs</string>
+    <string name="subtitle_activity_dialog">Exemplo de estilo e uso</string>
+    <string name="title_wmserp">modulo wms do erp</string>
+    <string name="title_activity_main">MainActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="avancar">Avançar</string>
+    <string name="retornar">Retornar</string>
+    <string name="inicio">Inicio</string>
+    <string name="item_mcu">Cadastrar MCU</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="menu_retirada">Retirada de Material</string>
+    <string name="menu_retirada2">Retirada</string>
+    <string name="menu_retirada_atividades">ATIVIDADES</string>
+    <string name="relacao_tarefas">RELAÇÃO DE TAREFAS</string>
+    <string name="retirada_txt_opcao_locais">Opção de locais:</string>
+    <string name="retirada_radio_picking">Picking</string>
+    <string name="retirada_radio_arm">ARM</string>
+    <string name="retirada_radio_todos">Todos</string>
+    <string name="retirada_lista_zonas">Zona de Separação</string>
+    <string name="retirada_tab_designada">Designada</string>
+    <string name="retirada_tab_em_aberto">Em aberto</string>
+    <string name="endereco_retirada_tarefa">Tarefa:</string>
+    <string name="endereco_retirada_estrutura">Estrutura:</string>
+
+    <string name="endereco_retirada_lote_consolidado">Lote reabastecimento:</string>
+    <string name="endereco_retirada_encaminhe_se">Encaminhe-se ao endereço indicado:</string>
+    <string name="endereco_retirada_confirme_o_endereco">Confirme o endereço indicado:</string>
+    <string name="picking_retirada_selecione_o_item">Leia ou digite o código do item:</string>
+    <string name="picking_retirada_descricao">Descrição:</string>
+    <string name="picking_zona_destino">Zona de destino:</string>
+    <string name="picking_local_destino">Local de destino:</string>
+    <string name="picking_retirada_quantidade">Retirar a quantidade abaixo:</string>
+    <string name="picking_retirada_nova_quantidade">Digitar nova quantidade:</string>
+
+    <string name="dialog_aviso">Aviso</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_lista_tarefa_nao_encontrada">A pesquisa não retornou resultado.</string>
+
+    <string name="mcu_da_unidade">MCU da unidade (ex: 00004178)</string>
+    <string name="codigo_sro_da_unidade">Código SRO da unidade</string>
+    <string name="nome_da_unidade">Nome da unidade</string>
+    <string name="salvar">Salvar</string>
+    <string name="text_field_teste">Teste</string>
+    <string name="form_login_login">Login</string>
+    <string name="title_activity_main_wms">MainWmsActivity</string>
+    <string name="title_activity_splash_compose">App Logistica</string>
+    <string name="title_activity_login_compose">LoginActivityCompose</string>
+    <string name="title_activity_configuracao_unidade_compose">ConfiguracaoUnidadeActivityCompose
+    </string>
+    <string name="title_activity_main_principal_compose">MainPrincipalActivityCompose</string>
+
+
+</resources>

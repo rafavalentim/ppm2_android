@@ -6,9 +6,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class AutenticacaoRaw (
 
-   @SerialName("usuario")
-    val usuario: String,
+    @SerialName("usuario")
+    val usuario: String?,
 
     @SerialName("senha")
-    val senha: String
+    val senha: String?
 )

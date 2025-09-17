@@ -1,5 +1,6 @@
 package br.com.correios.ppm.config
 
+import br.com.correios.ppm.config.PermissionStatus.*
 import kotlinx.coroutines.CompletableDeferred
 import platform.AVFoundation.*
 import platform.CoreLocation.*
@@ -12,24 +13,25 @@ class IosPermissions : Permissions {
         for (p in permissions) {
             out[p] = when (p) {
                 AppPermission.FineLocation, AppPermission.CoarseLocation -> askLocation()
-                AppPermission.Camera -> askCamera()
 
                 // Sem equivalente direto no iOS:
                 AppPermission.ReadPhoneState,
                 AppPermission.ManageExternalStorage,
                 AppPermission.RequestInstallPackages ->
-                    PermissionStatus.Error("Não aplicável no iOS")
+                    Error("Não aplicável no iOS")
 
                 // Mídia: tratar com PHPhotoLibrary/Files conforme o caso
                 AppPermission.ReadMediaImages,
                 AppPermission.ReadMediaVideo,
                 AppPermission.ReadMediaAudio ->
-                    PermissionStatus.Error("Use PHPhotoLibrary.requestAuthorization/UIDocumentPicker")
+                    Error("Use PHPhotoLibrary.requestAuthorization/UIDocumentPicker")
 
                 // “normais” no Android — no iOS não há prompt
                 AppPermission.Internet, AppPermission.NetworkState,
                 AppPermission.Vibrate, AppPermission.WifiState,
                 AppPermission.ChangeWifiState -> PermissionStatus.Granted
+
+                AppPermission.Camera -> TODO()
             }
         }
         return out
@@ -42,22 +44,6 @@ class IosPermissions : Permissions {
             kCLAuthorizationStatusAuthorizedAlways -> PermissionStatus.Granted
             kCLAuthorizationStatusDenied -> PermissionStatus.PermanentlyDenied
             kCLAuthorizationStatusNotDetermined -> PermissionStatus.Denied // implemente delegate p/ fluxo assíncrono real
-            else -> PermissionStatus.Denied
-        }
-    }
-
-    private suspend fun askCamera(): PermissionStatus {
-        val status = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
-        return when (status) {
-            AVAuthorizationStatusAuthorized -> PermissionStatus.Granted
-            AVAuthorizationStatusDenied -> PermissionStatus.PermanentlyDenied
-            AVAuthorizationStatusNotDetermined -> {
-                val def = CompletableDeferred<PermissionStatus>()
-                requestAccessForMediaType(AVMediaTypeVideo, dispatch_get_main_queue()) { granted ->
-                    def.complete(if (granted) PermissionStatus.Granted else PermissionStatus.Denied)
-                }
-                def.await()
-            }
             else -> PermissionStatus.Denied
         }
     }

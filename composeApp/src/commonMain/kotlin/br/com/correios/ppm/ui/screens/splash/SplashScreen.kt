@@ -19,7 +19,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.graphicsLayer
 import br.com.correios.ppm.splash.presentation.SplashScreenViewModel
 import br.com.correios.ppm.splash.presentation.UsuarioUiState
-import br.com.correios.ppm.ui.screens.login.LoginScreen
+import br.com.correios.ppm.ui.screens.login.LoginDescriptionScreen
 import br.com.correios.ppm.ui.screens.main.MainScreen
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
@@ -83,11 +83,11 @@ fun SplashMainScreen(
 
         when (finalState) {
             is UsuarioUiState.Error -> {
-                navigator.replaceAll(LoginScreen(koin))
+                navigator.replaceAll(LoginDescriptionScreen(koin))
             }
             is UsuarioUiState.Success -> {
                 val destino = if (finalState.usuario?.login.isNullOrEmpty()) {
-                    LoginScreen(koin)
+                    LoginDescriptionScreen(koin)
                 } else {
                     MainScreen(koin)
                 }
