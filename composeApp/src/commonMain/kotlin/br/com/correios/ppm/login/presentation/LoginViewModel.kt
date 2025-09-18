@@ -85,7 +85,12 @@ class LoginViewModel(
 
         runCatching { loginUseCase.fetchUsuarioLogado() }
             .onSuccess {
-                _uiState.value = UsuarioUiState.Success(it)
+
+                if(!it?.nome.isNullOrEmpty()){
+                    _uiState.value = UsuarioUiState.Success(it)
+                }else{
+                    _uiState.value = UsuarioUiState.Error(it?.msgErro ?: "Erro")
+                }
             }
             .onFailure {
                 _uiState.value = UsuarioUiState.Error(it.message ?: "Erro")

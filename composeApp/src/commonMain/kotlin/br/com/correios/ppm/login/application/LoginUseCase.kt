@@ -32,7 +32,8 @@ class LoginUseCase(private val repo : LoginRepository) {
             endereco = raw?.endereco as Endereco?,
             lotacao = raw?.lotacao as Lotacao?,
             unidadeSRO = raw?.unidadeSRO,
-            distritoPostal = raw?.distritoPostal
+            distritoPostal = raw?.distritoPostal,
+            msgErro = raw?.base?.payload
         )
     }
 
@@ -47,9 +48,9 @@ class LoginUseCase(private val repo : LoginRepository) {
 
         val raw = mapToAutenticacaoRaw(autenticacao)
 
-        val token = repo.autenticar(raw)
+        //val token = repo.autenticar(raw)
 
-        return token
+        return null
     }
 
 }

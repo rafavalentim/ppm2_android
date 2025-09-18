@@ -1,5 +1,7 @@
 package br.com.correios.ppm.login.data
 
+import br.com.correios.ppm.data.ApiResult
+import br.com.correios.ppm.data.BaseRaw
 import br.com.correios.ppm.login.application.Autenticacao
 
 class LoginRepository(
@@ -9,33 +11,49 @@ class LoginRepository(
     suspend fun getUsuarioLogado(): UsuarioRaw?{
 
         //Por enquanto chamar somente a service. Ver se teremos esses dados no banco.
-        return fetchUsuarioLogado()
+        return fetchUsuarioLogado(service)
     }
 
-    private suspend fun fetchUsuarioLogado(): UsuarioRaw? {
+    suspend fun fetchUsuarioLogado(service: LoginService) : UsuarioRaw? {
 
-        var usuarioLogado : UsuarioRaw? = null
+        var usuario = UsuarioRaw()
 
-        try {
-            usuarioLogado =  service.getUsuarioLogado()
+        when (val r = service.getUsuarioLogado()) {
+            is ApiResult.Success -> {
 
-        } catch (e: Exception) {
-            println(e.message)
+                usuario = r.data
+
+            }
+            is ApiResult.Error -> {
+
+                usuario.base = BaseRaw()
+                usuario.base?.status = r.status
+                usuario.base?.msg = r.message
+                usuario.base?.payload = r.payload
+
+                // status pode ser nulo (erro de rede), payload pode ter HTML/JSON do erro
+                println("Falhou: status=${r.status} msg=${r.message}\n${r.payload}")
+            }
         }
-        return usuarioLogado
+        return usuario
     }
 
-    suspend fun autenticar(raw: AutenticacaoRaw?): TokenResponse?{
 
-        var token : TokenResponse? = null
 
-        try {
-            token = service.autentica(raw)
-        }catch (e: Exception){
-            println(e.message)
-        }
 
-        return token
-    }
+
+
+//    suspend fun autenticar(raw: AutenticacaoRaw?): TokenResponse?{
+//
+//        var token : TokenResponse? = null
+//
+//        try {
+//            token = service.autentica(raw)
+//        }catch (e: Exception){
+//            println(e.message)
+//        }
+//
+//        return token
+//    }
 
 }

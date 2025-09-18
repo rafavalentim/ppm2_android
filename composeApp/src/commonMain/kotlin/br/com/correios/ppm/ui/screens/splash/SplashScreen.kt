@@ -14,11 +14,15 @@ import ppm_kmp.composeapp.generated.resources.Res
 import ppm_kmp.composeapp.generated.resources.icone
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.graphicsLayer
 import br.com.correios.ppm.splash.presentation.SplashScreenViewModel
 import br.com.correios.ppm.splash.presentation.UsuarioUiState
+import br.com.correios.ppm.ui.components.UiEvent
 import br.com.correios.ppm.ui.screens.login.LoginDescriptionScreen
 import br.com.correios.ppm.ui.screens.main.MainScreen
 import cafe.adriel.voyager.core.screen.Screen
@@ -48,25 +52,48 @@ fun SplashMainScreen(
     val navigator = LocalNavigator.currentOrThrow
     val usuarioState by splashScreenViewModel.uiState.collectAsState()
 
-    // UI do splash (seu layout atual)
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Spacer(Modifier.height(24.dp))
-            BouncyImage(
-                painter = painterResource(Res.drawable.icone),
-                contentDescription = "correios",
-                amplitudeDp = 18,
-                cycleDurationMs = 900
-            )
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    // Coletar eventos e mostrar snackbar
+    LaunchedEffect(Unit) {
+        splashScreenViewModel.events.collect { event ->
+            when (event) {
+                is UiEvent.ShowMessage -> {
+                    snackbarHostState.showSnackbar(
+                        message = event.message,
+                        actionLabel = event.actionLabel
+                    )
+                }
+            }
         }
     }
+
+
+    Scaffold(
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
+    ) { innerPadding ->
+
+        // UI do splash (seu layout atual)
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Spacer(Modifier.height(24.dp))
+                BouncyImage(
+                    painter = painterResource(Res.drawable.icone),
+                    contentDescription = "correios",
+                    amplitudeDp = 18,
+                    cycleDurationMs = 900
+                )
+            }
+        }
+    }
+
 
     // Navegação após: (tempo mínimo de 5s) E (estado != Loading)
     LaunchedEffect(Unit) {

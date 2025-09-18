@@ -7,5 +7,6 @@ data class Usuario (
     var endereco: Endereco? = null,
     var unidadeSRO: String? = null,
     var distritoPostal: String? = null,
-    var lotacao: Lotacao? = null
+    var lotacao: Lotacao? = null,
+    var msgErro: String? = null
 )
