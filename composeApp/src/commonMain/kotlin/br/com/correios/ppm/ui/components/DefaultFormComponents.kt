@@ -195,7 +195,9 @@ fun DefaultButton(
     Box(modifier = Modifier.fillMaxWidth()) {
         Button(
             onClick = {
+
                 viewModel.onLoginClick()
+
             },
             shape = RoundedCornerShape(8.dp),
             elevation = ButtonDefaults.elevatedButtonElevation(

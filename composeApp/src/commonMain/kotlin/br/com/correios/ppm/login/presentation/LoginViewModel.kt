@@ -2,6 +2,7 @@ package br.com.correios.ppm.login.presentation
 
 import androidx.lifecycle.viewModelScope
 import br.com.correios.ppm.BaseViewModel
+import br.com.correios.ppm.data.ApiResult
 import br.com.correios.ppm.data.KeyValueStorage
 import br.com.correios.ppm.login.application.Autenticacao
 import br.com.correios.ppm.login.application.LoginUseCase
@@ -85,18 +86,23 @@ class LoginViewModel(
 
         runCatching { loginUseCase.fetchUsuarioLogado() }
             .onSuccess {
+                _uiState.value = UsuarioUiState.Success(it)
 
-                if(!it?.nome.isNullOrEmpty()){
-                    _uiState.value = UsuarioUiState.Success(it)
+                if(it?.msgErro.isNullOrEmpty()){
+                    //disparando o snackbar
+                    _events.emit(UiEvent.ShowMessage("Usuário carregado com sucesso 🚀"))
                 }else{
-                    _uiState.value = UsuarioUiState.Error(it?.msgErro ?: "Erro")
+                    _uiState.value = UsuarioUiState.Error(it.msgErro ?: "Erro")
+                    // dispara snackbar
+                    _events.emit(UiEvent.ShowMessage("Direcionando para a tela de login"))
                 }
             }
             .onFailure {
                 _uiState.value = UsuarioUiState.Error(it.message ?: "Erro")
+                // dispara snackbar
+                _events.emit(UiEvent.ShowMessage("Falha ao carregar usuário ❌"))
             }
     }
-
 
 
     fun onLoginClick(){
@@ -115,24 +121,26 @@ class LoginViewModel(
 
             viewModelScope.launch {
 
-                val token = loginUseCase.autenticar(autenticacao)
+                when (val r = loginUseCase.autenticar(autenticacao)) {
 
-                if(token == null){
+                    is ApiResult.Success -> {
+                        val token = r.data
 
-                    _loginStatus.value = "Login failed"
-                    _events.emit(UiEvent.ShowMessage(_loginStatus.value, actionLabel = "OK"))
+                        if(token.token.isNullOrEmpty()){
+                            _autenticacaoUiState.value = AutenticacaoUiState.Error("Erro ao obter o token se sessão")
+                            _events.emit(UiEvent.ShowMessage("Ocorreu um erro, token vazio"))
 
-                }else{
-
-                    //Pegando o token de sessão
-                    val tokenResponse: TokenResponse? = token
-                    tokenResponse.let {
-                        setarTokenSessao(tokenResponse)
+                        }else{
+                            _autenticacaoUiState.value = AutenticacaoUiState.Success(autenticacao)
+                            setarTokenSessao(token)
+                            carregarUsuarioLogado()
+                            _events.emit(UiEvent.ShowMessage("Sucesso 🚀"))
+                        }
                     }
-
-                    //Buscar os dados do usuário logado. (Avaliar criar uma tabela no banco para
-                    // armazenas as informações do usuário logado. Melhor que jogar no Preferences).
-                    carregarUsuarioLogado()
+                    is ApiResult.Error -> {
+                        _autenticacaoUiState.value = AutenticacaoUiState.Error(r.payload ?: "Erro")
+                        _events.emit(UiEvent.ShowMessage(r.payload ?: "Erro"))
+                    }
                 }
             }
         }

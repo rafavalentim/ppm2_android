@@ -22,7 +22,6 @@ class LoginRepository(
             is ApiResult.Success -> {
 
                 usuario = r.data
-
             }
             is ApiResult.Error -> {
 
@@ -38,22 +37,9 @@ class LoginRepository(
         return usuario
     }
 
+    suspend fun autenticar(raw: AutenticacaoRaw): ApiResult<TokenResponse>{
 
-
-
-
-
-//    suspend fun autenticar(raw: AutenticacaoRaw?): TokenResponse?{
-//
-//        var token : TokenResponse? = null
-//
-//        try {
-//            token = service.autentica(raw)
-//        }catch (e: Exception){
-//            println(e.message)
-//        }
-//
-//        return token
-//    }
+            return service.autentica(raw)
+    }
 
 }
