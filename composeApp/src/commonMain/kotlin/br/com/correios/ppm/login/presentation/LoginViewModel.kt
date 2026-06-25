@@ -105,44 +105,70 @@ class LoginViewModel(
     }
 
 
-    fun onLoginClick(){
+    fun onLoginClick() {
 
-        val user = username
+        val user = username.value
         val pass = autenticacaoUiState.value.aut?.senha
 
-        if (user.value.isNullOrEmpty() || pass.isNullOrEmpty()) {
-            _loginStatus.value = "Username or Password is empty"
-        }else{
+        if (user.isNullOrEmpty() || pass.isNullOrEmpty()) {
+            viewModelScope.launch {
+                _events.emit(UiEvent.ShowMessage("Username or Password is empty"))
+            }
+            return
+        }
 
+        viewModelScope.launch {
             _isLoading.value = true
 
-            //Inicializando o objeto Autenticacao com os dados do login
-            val autenticacao = Autenticacao(user.value, pass)
-
-            viewModelScope.launch {
+            try {
+                val autenticacao = Autenticacao(user, pass)
 
                 when (val r = loginUseCase.autenticar(autenticacao)) {
 
                     is ApiResult.Success -> {
                         val token = r.data
 
-                        if(token.token.isNullOrEmpty()){
-                            _autenticacaoUiState.value = AutenticacaoUiState.Error("Erro ao obter o token se sessão")
-                            _events.emit(UiEvent.ShowMessage("Ocorreu um erro, token vazio"))
+                        if (token.token.isNullOrEmpty()) {
+                            _autenticacaoUiState.value =
+                                AutenticacaoUiState.Error("Erro ao obter o token de sessão")
 
-                        }else{
-                            _autenticacaoUiState.value = AutenticacaoUiState.Success(autenticacao)
+                            _events.emit(
+                                UiEvent.ShowMessage("Ocorreu um erro, token vazio")
+                            )
+                        } else {
+                            _autenticacaoUiState.value =
+                                AutenticacaoUiState.Success(autenticacao)
+
                             setarTokenSessao(token)
-                            _isLoading.value = false
-                            _events.emit(UiEvent.ShowMessage("Sucesso"))
+
                             carregarUsuarioLogado()
+
+                            _events.emit(UiEvent.ShowMessage("Sucesso"))
+
+                            _events.emit(UiEvent.LoginSuccess)
                         }
                     }
+
                     is ApiResult.Error -> {
-                        _autenticacaoUiState.value = AutenticacaoUiState.Error(r.payload ?: "Erro")
-                        _events.emit(UiEvent.ShowMessage(r.payload ?: "Erro"))
+                        _autenticacaoUiState.value =
+                            AutenticacaoUiState.Error(r.payload ?: "Erro")
+
+                        _events.emit(
+                            UiEvent.ShowMessage(r.payload ?: "Erro")
+                        )
                     }
                 }
+
+            } catch (e: Exception) {
+                _autenticacaoUiState.value =
+                    AutenticacaoUiState.Error(e.message ?: "Erro inesperado")
+
+                _events.emit(
+                    UiEvent.ShowMessage(e.message ?: "Erro inesperado")
+                )
+
+            } finally {
+                _isLoading.value = false
             }
         }
     }

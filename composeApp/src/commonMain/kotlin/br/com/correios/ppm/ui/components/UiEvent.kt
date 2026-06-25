@@ -6,4 +6,7 @@ sealed interface UiEvent {
         val message: String,
         val actionLabel: String? = null
     ) : UiEvent
+
+    data object LoginSuccess : UiEvent
+
 }

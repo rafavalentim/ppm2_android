@@ -27,6 +27,7 @@ import br.com.correios.ppm.ui.components.PasswordTextFieldCorreios
 import br.com.correios.ppm.ui.components.SwitchWithIconExample
 import br.com.correios.ppm.ui.components.TextVersioApp
 import br.com.correios.ppm.ui.components.UiEvent
+import br.com.correios.ppm.ui.screens.main.MainScreen
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -61,7 +62,14 @@ class LoginDescriptionScreen(val koin : Koin) : Screen{
             loginViewModel.events.collect { event ->
                 when (event) {
                     is UiEvent.ShowMessage -> {
-                        snackbarHostState.showSnackbar(event.message)
+                        snackbarHostState.showSnackbar(
+                            message = event.message,
+                            actionLabel = event.actionLabel
+                        )
+                    }
+
+                    UiEvent.LoginSuccess -> {
+                        navigator.replaceAll(MainScreen(koin))
                     }
                 }
             }

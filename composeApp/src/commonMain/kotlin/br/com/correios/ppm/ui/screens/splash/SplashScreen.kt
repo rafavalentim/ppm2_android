@@ -64,6 +64,8 @@ fun SplashMainScreen(
                         actionLabel = event.actionLabel
                     )
                 }
+
+                else -> {}
             }
         }
     }

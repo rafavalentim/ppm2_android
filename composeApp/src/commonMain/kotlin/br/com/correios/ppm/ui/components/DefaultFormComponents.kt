@@ -188,6 +188,8 @@ fun DefaultButton(
                         actionLabel = event.actionLabel
                     )
                 }
+
+                else -> {}
             }
         }
     }
