@@ -1,14 +1,11 @@
 package br.com.correios.ppm.di
 
-import br.com.correios.ppm.config.SessaoExpiradaException
 import br.com.correios.ppm.data.KeyValueStorage
 import io.ktor.client.HttpClient
-import io.ktor.client.plugins.HttpResponseValidator
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.request.accept
 import io.ktor.client.request.header
-import io.ktor.client.statement.request
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
