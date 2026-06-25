@@ -9,10 +9,7 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpMethod
 import io.ktor.http.contentType
 
-class LoginService(private val client: HttpClient){
-
-    val baseUrl = "https://applogisticahom.correios.com.br"
-    private val base = baseUrl.trimEnd('/')
+class LoginService(private val client: HttpClient, private val baseUrl: String) {
 
     suspend fun getUsuarioLogado(): ApiResult<UsuarioRaw> =
         client.requestSmart(

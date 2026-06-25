@@ -141,7 +141,24 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
-        buildConfigField("String", "BASE_URL", "\"https://applogisticahom.correios.com.br/\"")
+    }
+
+    flavorDimensions += "environment"
+    productFlavors {
+        create("dev") {
+            dimension = "environment"
+            applicationIdSuffix = ".dev"
+            buildConfigField("String", "BASE_URL", "\"https://applogisticades.correios.com.br\"")
+        }
+        create("hom") {
+            dimension = "environment"
+            applicationIdSuffix = ".hom"
+            buildConfigField("String", "BASE_URL", "\"https://applogisticahom.correios.com.br\"")
+        }
+        create("prod") {
+            dimension = "environment"
+            buildConfigField("String", "BASE_URL", "\"https://applogistica.correios.com.br\"")
+        }
     }
     packaging {
         resources {

@@ -6,8 +6,10 @@ import br.com.correios.ppm.config.AppContext
 import br.com.correios.ppm.di.databaseModule
 import br.com.correios.ppm.di.sharedModules
 import br.com.correios.ppm.login.application.Usuario
+import br.com.correios.ppm.login.data.LoginService
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
+import org.koin.dsl.module
 
 
 //Essa classe inicia os módulos inicializa o koin, responsável pelas injeção automática de
@@ -24,7 +26,10 @@ class MobileApp : Application() {
 
     //Inicializando o koin no contexto da aplicação.
     private fun initKoin(){
-        val modules =  sharedModules + databaseModule
+        val androidModule = module {
+            single { LoginService(get(), BuildConfig.BASE_URL) }
+        }
+        val modules = sharedModules + databaseModule + androidModule
 
         startKoin {
             androidContext(this@MobileApp)
