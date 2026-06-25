@@ -1,0 +1,26 @@
+package br.com.correios.ppm.main.presentation
+
+import br.com.correios.ppm.BaseViewModel
+import br.com.correios.ppm.data.KeyValueStorage
+import br.com.correios.ppm.ui.components.UiEvent
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+
+class MainViewModel(
+    //Colocar o Use Case aqui depois quando for implementar
+): BaseViewModel() {
+
+    val preferences = KeyValueStorage()
+
+    val _isLoading = MutableStateFlow(false)
+    val isLoading : StateFlow<Boolean> = _isLoading.asStateFlow()
+
+
+    //Objeto para usar no lugar do Toast em Compose
+    private val _events = MutableSharedFlow<UiEvent>(extraBufferCapacity = 1)
+    val events: SharedFlow<UiEvent> = _events
+
+}
