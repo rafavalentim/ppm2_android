@@ -55,8 +55,21 @@ class LoginDescriptionScreen(val koin : Koin) : Screen{
 
         val autenticacaoState by loginViewModel.autenticacaoUiState.collectAsState()
 
+        val snackbarHostState = remember { SnackbarHostState() }
 
-        Scaffold { innerPadding ->
+        LaunchedEffect(Unit) {
+            loginViewModel.events.collect { event ->
+                when (event) {
+                    is UiEvent.ShowMessage -> {
+                        snackbarHostState.showSnackbar(event.message)
+                    }
+                }
+            }
+        }
+
+        Scaffold(
+            snackbarHost = { SnackbarHost(snackbarHostState) }
+        ) { innerPadding ->
 
             Surface(
                 modifier = Modifier.fillMaxSize(),

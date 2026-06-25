@@ -56,7 +56,7 @@ class LoginViewModel(
 
     private fun setarTokenSessao(tokenResponse: TokenResponse?){
         tokenResponse?.token?.let {
-            preferences.putString("session_cookie", token.value?.token.toString())
+            preferences.putString("session_cookie", it)
         }
     }
 
@@ -133,8 +133,9 @@ class LoginViewModel(
                         }else{
                             _autenticacaoUiState.value = AutenticacaoUiState.Success(autenticacao)
                             setarTokenSessao(token)
+                            _isLoading.value = false
+                            _events.emit(UiEvent.ShowMessage("Sucesso"))
                             carregarUsuarioLogado()
-                            _events.emit(UiEvent.ShowMessage("Sucesso 🚀"))
                         }
                     }
                     is ApiResult.Error -> {
