@@ -32,7 +32,7 @@ val networkModule = module {
             defaultRequest {
                 accept(ContentType.Any) // aceita texto/HTML/JSON/etc.
                 val token = KeyValueStorage().getString("session_cookie", "")
-                if (!token.isNullOrEmpty()) header(HttpHeaders.Authorization, "Bearer $token")
+                if (!token.isNullOrEmpty()) header(HttpHeaders.Cookie, token)
             }
         }
     }
