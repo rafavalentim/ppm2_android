@@ -56,7 +56,7 @@ fun CardMenu(
             Icon(
                 painter = icon,
                 contentDescription = title,
-                tint = MaterialTheme.colorScheme.primary
+                tint = Color.Unspecified
             )
             Spacer(modifier = Modifier.height(1.dp))
             Text(

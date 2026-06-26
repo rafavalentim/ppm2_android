@@ -99,14 +99,7 @@ class MainScreen(val koin : Koin) : Screen{
                     title = {
                         LogoScreen(20)
                     },
-                    navigationIcon = {
-                        // IconButton(onClick = { /* do something */ }) {
-//                            Icon(
-//                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-//                                contentDescription = "Localized description"
-//                            )
-                        // }
-                    },
+                    navigationIcon = { },
                     actions = {
                         IconButton(onClick = { expanded = true }) {
                             Icon(
@@ -149,8 +142,8 @@ class MainScreen(val koin : Koin) : Screen{
     fun MenuContent(viewModel: MainViewModel) {
         //Inicializando os itens do Menu
         val listaMenuObject = listOf(
-            MenuObject("Armazém", Res.drawable.empilhadeira_cor),
-            MenuObject("Concursos", Res.drawable.ic_documento_cor)
+            //MenuObject("Armazém", Res.drawable.empilhadeira_cor),
+            MenuObject("Unidade", Res.drawable.ic_documento_cor)
         )
         CorreiosHorizontalDivider(110)
         MainMenuText()
