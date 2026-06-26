@@ -43,6 +43,7 @@ import org.jetbrains.compose.resources.painterResource
 import ppm_kmp.composeapp.generated.resources.Res
 import ppm_kmp.composeapp.generated.resources.empilhadeira_cor
 import ppm_kmp.composeapp.generated.resources.ic_documento_cor
+import br.com.correios.ppm.ui.screens.unidade.ConsultaUnidadeScreen
 import br.com.correios.ppm.ui.components.CorreiosHorizontalDivider
 import br.com.correios.ppm.ui.components.LoadingScreen
 import br.com.correios.ppm.ui.components.LogoScreen
@@ -130,17 +131,18 @@ class MainScreen(val koin : Koin) : Screen{
                     scrollBehavior = scrollBehavior,
                 )
             },
-        ) {padding ->
+        ) { _ ->
             AppTheme {
-                MenuContent(viewModel)
+                MenuContent(viewModel, koin)
             }
         }
     }
 
 
     @Composable
-    fun MenuContent(viewModel: MainViewModel) {
-        //Inicializando os itens do Menu
+    fun MenuContent(viewModel: MainViewModel, koin: Koin) {
+        val navigator = LocalNavigator.currentOrThrow
+
         val listaMenuObject = listOf(
             //MenuObject("Armazém", Res.drawable.empilhadeira_cor),
             MenuObject("Unidade", Res.drawable.ic_documento_cor)
@@ -157,7 +159,11 @@ class MainScreen(val koin : Koin) : Screen{
                 CardMenu(
                     title = item.title,
                     icon = painterResource(item.icon),
-                    onClick = {}
+                    onClick = {
+                        when (item.title) {
+                            "Unidade" -> navigator.push(ConsultaUnidadeScreen(koin))
+                        }
+                    }
                 )
             }
         }
