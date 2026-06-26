@@ -36,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import br.com.correios.ppm.main.presentation.MainViewModel
 import br.com.correios.ppm.ui.components.CardMenu
 import org.jetbrains.compose.resources.painterResource
@@ -55,10 +56,10 @@ class MainScreen(val koin : Koin) : Screen{
 
     @Composable
     override fun Content() {
-        MainMainScreen(koin)
+        AppTheme {
+            MainMainScreen(koin)
+        }
     }
-
-
 
     @Composable
     fun MainMainScreen(
@@ -71,33 +72,13 @@ class MainScreen(val koin : Koin) : Screen{
         //Implementando a navegação entre telas com o Voyager
         val navigator = LocalNavigator.currentOrThrow
 
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                CircularProgressIndicator(
-                    modifier = Modifier
-                    .width(64.dp),
-                   color = Color.Red
-                )
-                Spacer(Modifier.height(24.dp))
-
-            }
-        }
-
+        CenterAlignedTopAppBarExample(mainViewModel)
 
         // Overlay de loading
         if (isLoading.value) {
             LoadingScreen(isLoading.value)
         }
-
     }
-
 
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -116,7 +97,7 @@ class MainScreen(val koin : Koin) : Screen{
                         titleContentColor = MaterialTheme.colorScheme.primary,
                     ),
                     title = {
-                        LogoScreen(5)
+                        LogoScreen(20)
                     },
                     navigationIcon = {
                         // IconButton(onClick = { /* do something */ }) {
@@ -176,7 +157,7 @@ class MainScreen(val koin : Koin) : Screen{
         LazyVerticalGrid(
             columns = GridCells.Fixed(3),
             modifier = Modifier
-                .padding(top = 115.dp, start = 10.dp, end = 10.dp)
+                .padding(top = 120.dp, start = 10.dp, end = 10.dp)
                 .width(300.dp)
         ) {
             items(listaMenuObject) { item ->
@@ -202,5 +183,4 @@ class MainScreen(val koin : Koin) : Screen{
             modifier = Modifier.padding(start = 16.dp, top = 8.dp, bottom = 8.dp)
         )
     }
-
 }
