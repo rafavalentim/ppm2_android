@@ -35,12 +35,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
-import br.com.correios.ppm.main.presentation.MainViewModel
 import br.com.correios.ppm.ui.components.CorreiosHorizontalDivider
 import br.com.correios.ppm.ui.components.LoadingScreen
 import br.com.correios.ppm.ui.components.LogoScreen
 import br.com.correios.ppm.ui.components.UiEvent
 import br.com.correios.ppm.ui.themes.AppTheme
+import br.com.correios.ppm.unidade.presentation.UnidadeViewModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -59,7 +59,7 @@ class ConsultaUnidadeScreen(val koin: Koin) : Screen {
     @Composable
     fun ConsultaUnidadeContent(
         koin: Koin,
-        viewModel: MainViewModel = koin.get()
+        viewModel: UnidadeViewModel = koin.get()
     ) {
         val navigator = LocalNavigator.currentOrThrow
         val isLoading by viewModel.isLoading.collectAsState()
@@ -117,7 +117,7 @@ class ConsultaUnidadeScreen(val koin: Koin) : Screen {
             ) {
                 CorreiosHorizontalDivider(0)
 
-                UnidadeSearchBar()
+                UnidadeSearchBar(onSearch = { viewModel.buscarUnidade(it) })
             }
 
             if (isLoading) {
@@ -127,7 +127,7 @@ class ConsultaUnidadeScreen(val koin: Koin) : Screen {
     }
 
     @Composable
-    fun UnidadeSearchBar() {
+    fun UnidadeSearchBar(onSearch: (String) -> Unit) {
         var codigoMcu by remember { mutableStateOf("") }
 
         Row(
@@ -157,7 +157,7 @@ class ConsultaUnidadeScreen(val koin: Koin) : Screen {
                 },
                 trailingIcon = {
                     IconButton(
-                        onClick = { /* TODO: implementar pesquisa */ },
+                        onClick = { onSearch(codigoMcu) },
                         modifier = Modifier.size(40.dp)
                     ) {
                         Icon(

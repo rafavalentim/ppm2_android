@@ -7,6 +7,7 @@ import br.com.correios.ppm.di.databaseModule
 import br.com.correios.ppm.di.sharedModules
 import br.com.correios.ppm.login.application.Usuario
 import br.com.correios.ppm.login.data.LoginService
+import br.com.correios.ppm.unidade.data.UnidadeService
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
@@ -28,6 +29,7 @@ class MobileApp : Application() {
     private fun initKoin(){
         val androidModule = module {
             single { LoginService(get(), BuildConfig.BASE_URL) }
+            single { UnidadeService(get(), BuildConfig.BASE_URL) }
         }
         val modules = sharedModules + databaseModule + androidModule
 
