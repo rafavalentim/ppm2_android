@@ -37,12 +37,18 @@ kotlin {
         commonMain.dependencies {
             implementation(project(":core"))
             implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.material3)
+            implementation(compose.ui)
+            implementation(compose.materialIconsExtended)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.ktor.client.core)
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.voyager.navigator)
+            implementation(libs.voyager.transitions)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
