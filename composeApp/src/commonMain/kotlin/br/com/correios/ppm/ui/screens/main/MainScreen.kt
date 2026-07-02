@@ -32,6 +32,7 @@ import br.com.correios.ppm.ui.components.CardMenu
 import org.jetbrains.compose.resources.painterResource
 import ppm_kmp.composeapp.generated.resources.Res
 import ppm_kmp.composeapp.generated.resources.ic_documento_cor
+import br.com.correios.ppm.concursos.ui.screens.MainMenuConcursosScreen
 import br.com.correios.ppm.ui.screens.unidade.ConsultaUnidadeScreen
 import br.com.correios.ppm.ui.components.CorreiosHorizontalDivider
 import br.com.correios.ppm.ui.components.LoadingScreen
@@ -58,9 +59,6 @@ class MainScreen(val koin : Koin) : Screen{
     ) {
 
         val isLoading = mainViewModel.isLoading.collectAsState()
-
-        //Implementando a navegação entre telas com o Voyager
-        val navigator = LocalNavigator.currentOrThrow
 
         CenterAlignedTopAppBarExample(mainViewModel)
 
@@ -134,7 +132,8 @@ class MainScreen(val koin : Koin) : Screen{
 
         val listaMenuObject = listOf(
             //MenuObject("Armazém", Res.drawable.empilhadeira_cor),
-            MenuObject("Unidade", Res.drawable.ic_documento_cor)
+            MenuObject("Unidade", Res.drawable.ic_documento_cor),
+            MenuObject("Concursos", Res.drawable.ic_documento_cor)
         )
         CorreiosHorizontalDivider(110)
         MainMenuText()
@@ -151,6 +150,7 @@ class MainScreen(val koin : Koin) : Screen{
                     onClick = {
                         when (item.title) {
                             "Unidade" -> navigator.push(ConsultaUnidadeScreen(koin))
+                            "Concursos" -> navigator.push(MainMenuConcursosScreen(koin))
                         }
                     }
                 )

@@ -88,6 +88,8 @@ class LoginViewModel(
                 _uiState.value = UsuarioUiState.Success(it)
 
                 if(it?.msgErro.isNullOrEmpty()){
+                    it?.nome?.let { nome -> preferences.putString("pref_nome", nome) }
+                    it?.login?.let { login -> preferences.putString("pref_username", login) }
                     //disparando o snackbar
                     _events.emit(UiEvent.ShowMessage("Usuário carregado com sucesso 🚀"))
                 }else{

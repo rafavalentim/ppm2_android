@@ -57,6 +57,7 @@ fun MenuConcursosScreen(
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     val isLoading by viewModel.isLoading.collectAsState()
     val nome by viewModel.nomeUsuario.collectAsState()
+    val matricula by viewModel.matricula.collectAsState()
 
     val truncada = viewModel.truncateStringWithEllipsis(16, nome)
 
@@ -68,8 +69,7 @@ fun MenuConcursosScreen(
         topBar = {
             HeaderMainMenu(
                 nome = truncada,
-                matricula = null,
-                logoPainter = rememberVectorPainter(Icons.Default.Edit)
+                matricula = matricula
             )
         },
         bottomBar = {

@@ -10,5 +10,5 @@ val concursoModule = module {
     single { ConcursoRepository(get()) }
     single { ConcursoUseCase(get()) }
     single { ConcursoViewModel(get()) }
-    single { MainConcursosViewModel(get()) }
+    single { MainConcursosViewModel(get(), get()) }
 }

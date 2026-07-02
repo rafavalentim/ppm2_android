@@ -70,16 +70,26 @@ fun HeaderDefaultMenu(nome: String?, logoPainter: Painter) {
 fun HeaderMainMenu(
     nome: String?,
     matricula: String?,
-    logoPainter: Painter
+    logoPainter: Painter? = null
 ) {
     Column(
-        modifier = Modifier.padding(8.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            LogoMenu(logoPainter)
+        if (logoPainter != null) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                LogoMenu(logoPainter)
+            }
         }
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             IconCard(icon = Icons.Default.ContactMail)
             UserColumn(nome, matricula)
         }
@@ -132,17 +142,17 @@ fun UserColumn(nome: String?, matricula: String?) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.SpaceBetween
+            .padding(start = 8.dp, end = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         Text(
-            text = "$nome",
-            style = MaterialTheme.typography.titleLarge,
+            text = nome.takeIf { !it.isNullOrBlank() } ?: "—",
+            style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onBackground
         )
         Text(
-            text = "Matrícula: $matricula",
-            style = MaterialTheme.typography.bodyLarge,
+            text = "Matrícula: ${matricula.takeIf { !it.isNullOrBlank() } ?: "—"}",
+            style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onBackground
         )
     }

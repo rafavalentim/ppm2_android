@@ -11,10 +11,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class MainConcursosViewModel(
-    private val useCase: ConcursoUseCase
+    private val useCase: ConcursoUseCase,
+    private val preferences: KeyValueStorage
 ) : BaseViewModel() {
-
-    private val preferences = KeyValueStorage()
 
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
@@ -22,9 +21,11 @@ class MainConcursosViewModel(
     private val _isConnected = MutableStateFlow(true)
     val isConnected: StateFlow<Boolean> = _isConnected.asStateFlow()
 
-    // Equivalente ao AndroidApplicationCorreios.usuario — lido do KeyValueStorage
-    private val _nomeUsuario = MutableStateFlow(preferences.getString("pref_username") ?: "")
+    private val _nomeUsuario = MutableStateFlow(preferences.getString("pref_nome") ?: "")
     val nomeUsuario: StateFlow<String> = _nomeUsuario.asStateFlow()
+
+    private val _matricula = MutableStateFlow(preferences.getString("pref_username") ?: "")
+    val matricula: StateFlow<String> = _matricula.asStateFlow()
 
     private val _events = MutableSharedFlow<UiEvent>(extraBufferCapacity = 1)
     val events: SharedFlow<UiEvent> = _events

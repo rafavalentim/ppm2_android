@@ -13,7 +13,9 @@ import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
 val networkModule = module {
+    single { KeyValueStorage() }
     single {
+        val storage: KeyValueStorage = get()
         HttpClient {
             install(ContentNegotiation) {
                 json(
@@ -27,7 +29,7 @@ val networkModule = module {
             expectSuccess = false
             defaultRequest {
                 accept(ContentType.Any)
-                val token = KeyValueStorage().getString("session_cookie", "")
+                val token = storage.getString("session_cookie", "")
                 if (!token.isNullOrEmpty()) header(HttpHeaders.Cookie, token)
             }
         }
