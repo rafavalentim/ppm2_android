@@ -9,7 +9,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun CorreiosHorizontalDivider(topPadding:Int) {
+fun CorreiosHorizontalDivider(topPadding: Int) {
     HorizontalDivider(
         modifier = Modifier
             .padding(top = topPadding.dp)
