@@ -36,3 +36,5 @@ dependencyResolutionManagement {
 //}
 
 include(":composeApp")
+include(":core")
+include(":concursos")

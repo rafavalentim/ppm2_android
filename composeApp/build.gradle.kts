@@ -60,6 +60,10 @@ kotlin {
         }
         commonMain.dependencies {
 
+            // Módulos internos
+            implementation(project(":core"))
+            implementation(project(":concursos"))
+
             //Compose
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -78,7 +82,6 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.ktor.client.logging)
 
-
             //coroutines
             implementation(libs.kotlinx.datetime)
             implementation(libs.sql.coroutines.extensions)
@@ -94,7 +97,6 @@ kotlin {
             //Voyager (Navegação entre telas)
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.transitions)
-
 
         }
         commonTest.dependencies {

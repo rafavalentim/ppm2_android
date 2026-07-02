@@ -1,5 +1,6 @@
 package br.com.correios.ppm.di
 
+import br.com.correios.ppm.concursos.data.ConcursoService
 import br.com.correios.ppm.login.data.LoginService
 import br.com.correios.ppm.unidade.data.UnidadeService
 import org.koin.core.context.startKoin
@@ -11,6 +12,7 @@ fun initKoin() {
     val iosModule = module {
         single { LoginService(get(), IOS_BASE_URL) }
         single { UnidadeService(get(), IOS_BASE_URL) }
+        single { ConcursoService(get(), IOS_BASE_URL) }
     }
     val modules = sharedModules + databaseModule + iosModule
 
