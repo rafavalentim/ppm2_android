@@ -123,7 +123,7 @@ fun MenuContent(
                 onItemClick = { item ->
                     when (item) {
                         "Cadastrar Dados do Concurso" -> {
-                            // navigator.push(CadastroConcursoScreen(koin))
+                            navigator.push(CadastroEdicaoScreen(koin))
                         }
                         "Atualizar Status de Objetos" -> {
                             // navigator.push(AtualizaStatusScreen(koin))

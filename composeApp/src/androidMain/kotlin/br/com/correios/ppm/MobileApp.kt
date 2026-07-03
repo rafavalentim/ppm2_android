@@ -2,7 +2,7 @@ package br.com.correios.ppm
 
 import android.app.Application
 import android.app.Dialog
-import br.com.correios.ppm.concursos.data.ConcursoService
+import br.com.correios.ppm.concursos.data.GestaoLogisticaService
 import br.com.correios.ppm.config.AppContext
 import br.com.correios.ppm.di.databaseModule
 import br.com.correios.ppm.di.sharedModules
@@ -31,7 +31,7 @@ class MobileApp : Application() {
         val androidModule = module {
             single { LoginService(get(), BuildConfig.BASE_URL) }
             single { UnidadeService(get(), BuildConfig.BASE_URL) }
-            single { ConcursoService(get(), BuildConfig.BASE_URL) }
+            single { GestaoLogisticaService(get(), BuildConfig.BASE_URL) }
         }
         val modules = sharedModules + databaseModule + androidModule
 

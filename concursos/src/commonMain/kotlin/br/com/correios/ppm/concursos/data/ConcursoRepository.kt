@@ -3,7 +3,7 @@ package br.com.correios.ppm.concursos.data
 import br.com.correios.ppm.data.ApiResult
 import br.com.correios.ppm.data.BaseRaw
 
-class ConcursoRepository(private val service: ConcursoService) {
+class ConcursoRepository(private val service: GestaoLogisticaService) {
 
     suspend fun getConcursoPorId(id: String): ConcursoRaw? {
         var concurso = ConcursoRaw()
