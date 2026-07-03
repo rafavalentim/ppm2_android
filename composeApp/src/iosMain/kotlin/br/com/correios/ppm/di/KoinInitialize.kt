@@ -7,12 +7,13 @@ import org.koin.core.context.startKoin
 import org.koin.dsl.module
 
 private const val IOS_BASE_URL = "https://applogisticahom.correios.com.br"
+private const val IOS_BASE_URL_CONCURSOS = "/rest/gestaologistica/v1"
 
 fun initKoin() {
     val iosModule = module {
         single { LoginService(get(), IOS_BASE_URL) }
         single { UnidadeService(get(), IOS_BASE_URL) }
-        single { GestaoLogisticaService(get(), IOS_BASE_URL) }
+        single { GestaoLogisticaService(get(), IOS_BASE_URL, IOS_BASE_URL_CONCURSOS) }
     }
     val modules = sharedModules + databaseModule + iosModule
 

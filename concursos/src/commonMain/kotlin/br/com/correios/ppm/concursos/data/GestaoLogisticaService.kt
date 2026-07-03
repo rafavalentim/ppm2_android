@@ -8,7 +8,11 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpMethod
 import io.ktor.http.contentType
 
-class GestaoLogisticaService(private val client: HttpClient, private val baseUrl: String) {
+class GestaoLogisticaService(
+    private val client: HttpClient,
+    private val baseUrl: String,
+    private val baseUrlConcursos: String
+) {
 
     suspend fun getConcursoPorId(id: String): ApiResult<ConcursoRaw> =
         client.requestSmart(
@@ -19,7 +23,7 @@ class GestaoLogisticaService(private val client: HttpClient, private val baseUrl
     suspend fun atualizarStatusObjeto(dto: AtualizaStatusObjetosDto): ApiResult<ResponseAtualizaStatusObjetoDto> =
         client.requestSmart(
             baseUrl = baseUrl,
-            path = "/sgcon/sclsms",
+            path = "$baseUrlConcursos/sgcon/sclsms",
             method = HttpMethod.Post
         ) {
             contentType(ContentType.Application.Json)
@@ -29,6 +33,6 @@ class GestaoLogisticaService(private val client: HttpClient, private val baseUrl
     suspend fun getListaEdicoes(): ApiResult<List<EdicoesDto>> =
         client.requestSmart(
             baseUrl = baseUrl,
-            path = "/sgcon/scledicoes"
+            path = "$baseUrlConcursos/sgcon/scledicoes"
         )
 }

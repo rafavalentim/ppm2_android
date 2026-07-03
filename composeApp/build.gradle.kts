@@ -151,15 +151,18 @@ android {
             dimension = "environment"
             applicationIdSuffix = ".dev"
             buildConfigField("String", "BASE_URL", "\"https://applogisticades.correios.com.br\"")
+            buildConfigField("String", "BASE_URL_CONCURSOS", "\"/rest/gestaologistica/v1\"")
         }
         create("hom") {
             dimension = "environment"
             applicationIdSuffix = ".hom"
             buildConfigField("String", "BASE_URL", "\"https://applogisticahom.correios.com.br\"")
+            buildConfigField("String", "BASE_URL_CONCURSOS", "\"/rest/gestaologistica/v1\"")
         }
         create("prod") {
             dimension = "environment"
             buildConfigField("String", "BASE_URL", "\"https://applogistica.correios.com.br\"")
+            buildConfigField("String", "BASE_URL_CONCURSOS", "\"/rest/gestaologistica/v1\"")
         }
     }
     packaging {

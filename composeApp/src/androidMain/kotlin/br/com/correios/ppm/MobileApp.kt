@@ -31,7 +31,7 @@ class MobileApp : Application() {
         val androidModule = module {
             single { LoginService(get(), BuildConfig.BASE_URL) }
             single { UnidadeService(get(), BuildConfig.BASE_URL) }
-            single { GestaoLogisticaService(get(), BuildConfig.BASE_URL) }
+            single { GestaoLogisticaService(get(), BuildConfig.BASE_URL, BuildConfig.BASE_URL_CONCURSOS) }
         }
         val modules = sharedModules + databaseModule + androidModule
 
