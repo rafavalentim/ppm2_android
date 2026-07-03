@@ -22,6 +22,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -43,6 +45,7 @@ import androidx.compose.ui.window.Dialog
 import br.com.correios.ppm.concursos.application.Edicao
 import br.com.correios.ppm.concursos.presentation.CadastroEdicaoViewModel
 import br.com.correios.ppm.ui.components.LoadingScreen
+import br.com.correios.ppm.ui.components.UiEvent
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -64,9 +67,20 @@ fun TelaCadastroEdicaoScreen(viewModel: CadastroEdicaoViewModel) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     val isLoading by viewModel.isLoading.collectAsState()
     val isConnected by viewModel.isConnected.collectAsState()
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(Unit) {
+        viewModel.events.collect { event ->
+            when (event) {
+                is UiEvent.ShowMessage -> snackbarHostState.showSnackbar(event.message)
+                else -> {}
+            }
+        }
+    }
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
             TopAppBar(
                 title = { Text("Cadastro de Edição") },

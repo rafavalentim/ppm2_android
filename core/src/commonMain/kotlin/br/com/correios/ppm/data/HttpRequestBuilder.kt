@@ -32,9 +32,12 @@ suspend inline fun <reified T> HttpClient.requestSmart(
     }
     val text = runCatching { resp.bodyAsText() }.getOrNull()
     if (resp.status.isSuccess()) {
+        // corpo vazio em respostas 2xx (comum em endpoints que só confirmam a operação)
+        // não é JSON válido; tenta decodificar como objeto vazio antes de considerar erro.
+        val body = text?.takeIf { it.isNotBlank() } ?: "{}"
         val parsed = runCatching {
             Json { ignoreUnknownKeys = true; isLenient = true; explicitNulls = false }
-                .decodeFromString<T>(text ?: "")
+                .decodeFromString<T>(body)
         }.getOrNull()
         when {
             parsed != null -> ApiResult.Success(parsed)

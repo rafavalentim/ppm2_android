@@ -7,7 +7,9 @@ class AtualizaStatusObjetoRepository(private val service: GestaoLogisticaService
 
     suspend fun atualizarStatusObjeto(dto: AtualizaStatusObjetosDto): ResponseAtualizaStatusObjetoDto =
         when (val r = service.atualizarStatusObjeto(dto)) {
-            is ApiResult.Success -> r.data
+            // o endpoint responde 200 sem corpo quando dá certo (sem o campo "success"),
+            // então o sucesso HTTP em si já garante o "true" quando o corpo não traz nada.
+            is ApiResult.Success -> r.data.copy(success = r.data.success ?: "true")
             is ApiResult.Error -> {
                 println("Falhou: status=${r.status} msg=${r.message}\n${r.payload}")
                 ResponseAtualizaStatusObjetoDto(
