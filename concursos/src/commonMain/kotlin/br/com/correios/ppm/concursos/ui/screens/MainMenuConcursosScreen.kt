@@ -23,7 +23,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -38,7 +37,11 @@ import br.com.correios.ppm.ui.components.LoadingScreen
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import org.jetbrains.compose.resources.painterResource
 import org.koin.core.Koin
+import ppm_kmp.concursos.generated.resources.Res
+import ppm_kmp.concursos.generated.resources.ic_config_cor
+import ppm_kmp.concursos.generated.resources.ic_mundo_cor
 
 class MainMenuConcursosScreen(val koin: Koin) : Screen {
 
@@ -100,8 +103,8 @@ fun MenuContent(
     val isConnected by viewModel.isConnected.collectAsState()
 
     val listaMenus = listOf(
-        Pair(rememberVectorPainter(Icons.Default.Edit), "Cadastrar Dados do Concurso"),
-        Pair(rememberVectorPainter(Icons.Default.Sync), "Atualizar Status de Objetos")
+        Pair(painterResource(Res.drawable.ic_config_cor), "Cadastrar Dados do Concurso"),
+        Pair(painterResource(Res.drawable.ic_mundo_cor), "Atualizar Status de Objetos")
     )
 
     Column(
