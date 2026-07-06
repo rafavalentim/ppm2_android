@@ -272,12 +272,20 @@ fun AtualizaStatusObjetosScreenContent(viewModel: AtualizaStatusObjetosViewModel
 
     if (showScanner) {
         Dialog(onDismissRequest = { viewModel.onShowBarcodeChanged(false) }) {
-            Box(modifier = Modifier.size(300.dp)) {
-                BarcodeScannerScreen(
-                    onBarcodeScanned = {
-                        viewModel.onCodigoObjetoChange(it)
-                        viewModel.onShowBarcodeChanged(false)
-                    }
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Box(modifier = Modifier.size(300.dp)) {
+                    BarcodeScannerScreen(
+                        onBarcodeScanned = {
+                            viewModel.onCodigoObjetoChange(it)
+                            viewModel.onShowBarcodeChanged(false)
+                        }
+                    )
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "Afaste um pouco o aparelho até a imagem focar",
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.padding(horizontal = 16.dp)
                 )
             }
         }
