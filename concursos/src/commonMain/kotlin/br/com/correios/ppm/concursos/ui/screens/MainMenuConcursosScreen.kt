@@ -58,6 +58,7 @@ fun MenuConcursosScreen(
     koin: Koin,
     viewModel: MainConcursosViewModel = koin.get()
 ) {
+    val navigator = LocalNavigator.currentOrThrow
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     val isLoading by viewModel.isLoading.collectAsState()
     val nome by viewModel.nomeUsuario.collectAsState()
@@ -73,7 +74,8 @@ fun MenuConcursosScreen(
         topBar = {
             HeaderMainMenu(
                 nome = truncada,
-                matricula = matricula
+                matricula = matricula,
+                onBackClick = { navigator.pop() }
             )
         },
         bottomBar = {

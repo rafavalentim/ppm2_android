@@ -1,5 +1,10 @@
 package br.com.correios.ppm.ui.screens.main
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -24,6 +29,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
@@ -118,16 +124,16 @@ class MainScreen(val koin : Koin) : Screen{
                     scrollBehavior = scrollBehavior,
                 )
             },
-        ) { _ ->
+        ) { innerPadding ->
             AppTheme {
-                MenuContent(viewModel, koin)
+                MenuContent(viewModel, koin, innerPadding)
             }
         }
     }
 
 
     @Composable
-    fun MenuContent(viewModel: MainViewModel, koin: Koin) {
+    fun MenuContent(viewModel: MainViewModel, koin: Koin, innerPadding: PaddingValues) {
         val navigator = LocalNavigator.currentOrThrow
 
         val listaMenuObject = listOf(
@@ -135,25 +141,32 @@ class MainScreen(val koin : Koin) : Screen{
             MenuObject("Unidade", Res.drawable.ic_documento_cor),
             MenuObject("Concursos", Res.drawable.ic_documento_cor)
         )
-        CorreiosHorizontalDivider(110)
-        MainMenuText()
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(3),
-            modifier = Modifier
-                .padding(top = 120.dp, start = 10.dp, end = 10.dp)
-                .width(300.dp)
+
+        Column(
+            modifier = Modifier.fillMaxWidth().padding(innerPadding),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            items(listaMenuObject) { item ->
-                CardMenu(
-                    title = item.title,
-                    icon = painterResource(item.icon),
-                    onClick = {
-                        when (item.title) {
-                            "Unidade" -> navigator.push(ConsultaUnidadeScreen(koin))
-                            "Concursos" -> navigator.push(MainMenuConcursosScreen(koin))
+            CorreiosHorizontalDivider(topPadding = 0)
+            Spacer(modifier = Modifier.height(8.dp))
+            MainMenuText()
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(3),
+                modifier = Modifier
+                    .padding(start = 10.dp, end = 10.dp)
+                    .width(300.dp)
+            ) {
+                items(listaMenuObject) { item ->
+                    CardMenu(
+                        title = item.title,
+                        icon = painterResource(item.icon),
+                        onClick = {
+                            when (item.title) {
+                                "Unidade" -> navigator.push(ConsultaUnidadeScreen(koin))
+                                "Concursos" -> navigator.push(MainMenuConcursosScreen(koin))
+                            }
                         }
-                    }
-                )
+                    )
+                }
             }
         }
         // Overlay de loading

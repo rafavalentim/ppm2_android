@@ -16,10 +16,12 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ContactMail
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -71,7 +73,8 @@ fun HeaderDefaultMenu(nome: String?, logoPainter: Painter) {
 fun HeaderMainMenu(
     nome: String?,
     matricula: String?,
-    logoPainter: Painter? = null
+    logoPainter: Painter? = null,
+    onBackClick: (() -> Unit)? = null
 ) {
     Column(
         modifier = Modifier
@@ -92,6 +95,11 @@ fun HeaderMainMenu(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            if (onBackClick != null) {
+                IconButton(onClick = onBackClick) {
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Voltar")
+                }
+            }
             IconCard(icon = Icons.Default.ContactMail)
             UserColumn(nome, matricula)
         }
