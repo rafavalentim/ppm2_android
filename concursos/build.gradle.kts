@@ -48,11 +48,20 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.kotlinx.datetime)
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.transitions)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+        }
+        androidMain.dependencies {
+            implementation(libs.camerak)
+            implementation(libs.camerak.qr.scanner.plugin)
+        }
+        iosMain.dependencies {
+            implementation(libs.camerak)
+            implementation(libs.camerak.qr.scanner.plugin)
         }
     }
 }

@@ -6,6 +6,7 @@ import br.com.correios.ppm.concursos.application.EdicaoUseCase
 import br.com.correios.ppm.concursos.data.AtualizaStatusObjetoRepository
 import br.com.correios.ppm.concursos.data.ConcursoRepository
 import br.com.correios.ppm.concursos.data.EdicaoRepository
+import br.com.correios.ppm.concursos.presentation.AtualizaStatusObjetosViewModel
 import br.com.correios.ppm.concursos.presentation.CadastroEdicaoViewModel
 import br.com.correios.ppm.concursos.presentation.ConcursoViewModel
 import br.com.correios.ppm.concursos.presentation.MainConcursosViewModel
@@ -21,4 +22,5 @@ val concursoModule = module {
     single { AtualizaStatusObjetoRepository(get()) }
     single { AtualizaStatusObjetoUseCase(get()) }
     single { CadastroEdicaoViewModel(get(), get(), get()) }
+    single { AtualizaStatusObjetosViewModel(get(), get()) }
 }

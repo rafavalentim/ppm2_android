@@ -19,6 +19,7 @@ koin = "4.1.1"
 sqlDelight = "2.1.0"
 kamelImage = "1.0.7"
 voyagerVersion = "1.1.0-beta03"
+cameraK = "1.1"
 
 [libraries]
 
@@ -77,6 +78,10 @@ kamel-image = { module = "media.kamel:kamel-image", version.ref = "kamelImage" }
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyagerVersion" }
 voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyagerVersion" }
 web-worker-driver-wasm-js = { module = "app.cash.sqldelight:web-worker-driver-wasm-js", version.ref = "sqlDelight" }
+
+# CameraK (Câmera + leitura de código de barras multiplataforma: Android, iOS e Desktop/JVM)
+camerak = { module = "io.github.kashif-mehmood-km:camerak", version.ref = "cameraK" }
+camerak-qr-scanner-plugin = { module = "io.github.kashif-mehmood-km:qr_scanner_plugin", version.ref = "cameraK" }
 
 
 [plugins]

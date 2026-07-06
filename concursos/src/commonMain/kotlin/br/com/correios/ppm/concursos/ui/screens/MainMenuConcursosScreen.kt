@@ -126,7 +126,7 @@ fun MenuContent(
                             navigator.push(CadastroEdicaoScreen(koin))
                         }
                         "Atualizar Status de Objetos" -> {
-                            // navigator.push(AtualizaStatusScreen(koin))
+                            navigator.push(AtualizaStatusObjetosScreen(koin))
                         }
                     }
                 }

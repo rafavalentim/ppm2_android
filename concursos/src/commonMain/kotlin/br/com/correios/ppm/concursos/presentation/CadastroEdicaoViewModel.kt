@@ -101,6 +101,10 @@ class CadastroEdicaoViewModel(
                 } else {
                     resultado.msgErro ?: resultado.message ?: "Erro ao cadastrar"
                 }
+                if (resultado.success) {
+                    preferences.putString(PREF_NUMERO_EDICAO, _numeroEdicao.value)
+                    preferences.putString(PREF_NOME_EDICAO, _nomeEdicao.value)
+                }
                 _events.emit(UiEvent.ShowMessage(mensagem))
             }
             .onFailure {
@@ -108,5 +112,10 @@ class CadastroEdicaoViewModel(
             }
 
         _isLoading.value = false
+    }
+
+    companion object {
+        const val PREF_NUMERO_EDICAO = "pref_numeroEdicao"
+        const val PREF_NOME_EDICAO = "pref_nomeEdicao"
     }
 }
