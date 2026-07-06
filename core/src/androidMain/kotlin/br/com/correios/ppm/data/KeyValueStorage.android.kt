@@ -23,6 +23,6 @@ actual class KeyValueStorage actual constructor() {
     }
 
     actual fun getBoolean(key: String, value: Boolean?): Boolean? {
-        return value?.let { prefs.getBoolean(key, it) }
+        return if (prefs.contains(key)) prefs.getBoolean(key, false) else value
     }
 }

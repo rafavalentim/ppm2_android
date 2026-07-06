@@ -18,6 +18,6 @@ actual class KeyValueStorage {
     }
 
     actual fun getBoolean(key: String, value: Boolean?): Boolean? {
-        return defaults.boolForKey(key)
+        return if (defaults.objectForKey(key) != null) defaults.boolForKey(key) else value
     }
 }

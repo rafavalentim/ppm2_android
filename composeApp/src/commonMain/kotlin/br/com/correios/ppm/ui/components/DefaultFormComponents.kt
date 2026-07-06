@@ -92,19 +92,17 @@ fun DefaultTextFieldCorreios(
 
 @Composable
 fun PasswordTextFieldCorreios(
-    autenticacaoUiState: AutenticacaoUiState,
+    viewModel: LoginViewModel,
     modifier: Modifier = Modifier.padding(start = 0.dp, top = 16.dp, end = 0.dp, bottom = 4.dp)
 ) {
-    var password by rememberSaveable {
-        mutableStateOf(autenticacaoUiState.aut?.senha.orEmpty())
-    }
+    var password by rememberSaveable { mutableStateOf("") }
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
 
     TextField(
         value = password,
         onValueChange = {
-            password = it                    // segura o texto na UI
-            autenticacaoUiState.aut?.senha = it // (opcional) propaga pro seu estado atual
+            password = it
+            viewModel.onPasswordChanged(it) // propague para o VM
         },
         label = { Text("Senha", color = MaterialTheme.colorScheme.onBackground) },
         modifier = modifier

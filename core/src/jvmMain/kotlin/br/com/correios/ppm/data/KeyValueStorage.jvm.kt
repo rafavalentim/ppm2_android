@@ -20,6 +20,6 @@ actual class KeyValueStorage {
     }
 
     actual fun getBoolean(key: String, value: Boolean?): Boolean? {
-        return value?.let { prefs.getBoolean(key, it) }
+        return if (prefs.get(key, null) != null) prefs.getBoolean(key, false) else value
     }
 }

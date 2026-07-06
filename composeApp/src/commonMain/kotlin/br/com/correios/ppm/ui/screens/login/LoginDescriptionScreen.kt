@@ -95,7 +95,7 @@ class LoginDescriptionScreen(val koin : Koin) : Screen{
                     ) {
                         LogoScreen(5)
                         DefaultTextFieldCorreios(Res.string.form_login_login, loginViewModel, autenticacaoState)
-                        PasswordTextFieldCorreios(autenticacaoState)
+                        PasswordTextFieldCorreios(loginViewModel)
                         SwitchWithIconExample(loginViewModel)
                         DefaultButton("Entrar", loginViewModel)
                         TextVersioApp("Versão: 0.0.0") //Alterar para a versão da aplicação posteriormente.

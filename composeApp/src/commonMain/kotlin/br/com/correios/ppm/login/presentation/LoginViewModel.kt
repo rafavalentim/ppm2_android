@@ -37,6 +37,9 @@ class LoginViewModel(
     private val _username = MutableStateFlow("")
     val username = _username.asStateFlow()
 
+    private val _password = MutableStateFlow("")
+    val password = _password.asStateFlow()
+
     private val _loginStatus = MutableStateFlow("")
     val loginStatus = _loginStatus.asStateFlow()
 
@@ -50,6 +53,10 @@ class LoginViewModel(
         _username.value = value
         // se precisar refletir em Autenticacao, faça aqui
         // _autenticacao.update { it.copy(usuario = value) }
+    }
+
+    fun onPasswordChanged(value: String) {
+        _password.value = value
     }
 
 
@@ -109,7 +116,7 @@ class LoginViewModel(
     fun onLoginClick() {
 
         val user = username.value
-        val pass = autenticacaoUiState.value.aut?.senha
+        val pass = password.value
 
         if (user.isNullOrEmpty() || pass.isNullOrEmpty()) {
             viewModelScope.launch {

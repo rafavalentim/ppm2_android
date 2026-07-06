@@ -18,6 +18,6 @@ actual class KeyValueStorage {
     }
 
     actual fun getBoolean(key: String, value: Boolean?): Boolean? {
-        return (storage.getItem(key) ?: value) as Boolean?
+        return storage.getItem(key)?.toBoolean() ?: value
     }
 }
