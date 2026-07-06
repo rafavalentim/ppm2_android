@@ -42,10 +42,10 @@ class AtualizaStatusObjetosViewModel(
     private val _tipoSelecionado = MutableStateFlow(tipoOperacaoOptions.first())
     val tipoSelecionado: StateFlow<String> = _tipoSelecionado.asStateFlow()
 
-    private val _numeroEdicao = MutableStateFlow(preferences.getString(CadastroEdicaoViewModel.PREF_NUMERO_EDICAO) ?: "")
+    private val _numeroEdicao = MutableStateFlow("")
     val numeroEdicao: StateFlow<String> = _numeroEdicao.asStateFlow()
 
-    private val _nomeEdicao = MutableStateFlow(preferences.getString(CadastroEdicaoViewModel.PREF_NOME_EDICAO) ?: "")
+    private val _nomeEdicao = MutableStateFlow("")
     val nomeEdicao: StateFlow<String> = _nomeEdicao.asStateFlow()
 
     private val _codigoObjeto = MutableStateFlow("")
@@ -73,6 +73,13 @@ class AtualizaStatusObjetosViewModel(
 
     fun onShowBarcodeChanged(show: Boolean) {
         _showBarcodeScanner.value = show
+    }
+
+    // A edição cadastrada pode mudar a qualquer momento na tela de Cadastro de Edição;
+    // como esta ViewModel é um singleton do Koin, é preciso recarregar a cada entrada na tela.
+    fun carregarEdicaoCadastrada() {
+        _numeroEdicao.value = preferences.getString(CadastroEdicaoViewModel.PREF_NUMERO_EDICAO) ?: ""
+        _nomeEdicao.value = preferences.getString(CadastroEdicaoViewModel.PREF_NOME_EDICAO) ?: ""
     }
 
     fun onValidarCodigoObjeto() {

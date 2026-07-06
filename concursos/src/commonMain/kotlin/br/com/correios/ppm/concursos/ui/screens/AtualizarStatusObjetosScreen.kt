@@ -80,6 +80,7 @@ fun TelaAtualizaStatusObjetosScreen(viewModel: AtualizaStatusObjetosViewModel) {
     val snackbarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(Unit) {
+        viewModel.carregarEdicaoCadastrada()
         viewModel.events.collect { event ->
             when (event) {
                 is UiEvent.ShowMessage -> snackbarHostState.showSnackbar(event.message)

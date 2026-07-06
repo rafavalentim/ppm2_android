@@ -27,7 +27,7 @@ fun IconTitleList(items: List<Pair<Painter, String>>, onItemClick: (String) -> U
     ElevatedCard(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 16.dp, top = 140.dp, end = 16.dp)
+            .padding(start = 16.dp, top = 16.dp, end = 16.dp)
             .heightIn(min = 70.dp, max = 150.dp),
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = 6.dp),
         colors = CardDefaults.elevatedCardColors(

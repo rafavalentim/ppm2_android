@@ -1,9 +1,10 @@
 package br.com.correios.ppm.concursos.ui.screens
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -111,27 +112,26 @@ fun MenuContent(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        CorreiosHorizontalDivider(topPadding = 8)
-        Box(contentAlignment = Alignment.TopCenter) {
-            MainMenuText(
-                name = "Escolha uma opção",
-                isConnected = isConnected,
-                topPadding = 16
-            )
-            IconTitleList(
-                items = listaMenus,
-                onItemClick = { item ->
-                    when (item) {
-                        "Cadastrar Dados do Concurso" -> {
-                            navigator.push(CadastroEdicaoScreen(koin))
-                        }
-                        "Atualizar Status de Objetos" -> {
-                            navigator.push(AtualizaStatusObjetosScreen(koin))
-                        }
+        CorreiosHorizontalDivider(topPadding = 0)
+        Spacer(modifier = Modifier.height(8.dp))
+        MainMenuText(
+            name = "Escolha uma opção",
+            isConnected = isConnected,
+            topPadding = 16
+        )
+        IconTitleList(
+            items = listaMenus,
+            onItemClick = { item ->
+                when (item) {
+                    "Cadastrar Dados do Concurso" -> {
+                        navigator.push(CadastroEdicaoScreen(koin))
+                    }
+                    "Atualizar Status de Objetos" -> {
+                        navigator.push(AtualizaStatusObjetosScreen(koin))
                     }
                 }
-            )
-        }
+            }
+        )
     }
 }
 
