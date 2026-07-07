@@ -6,21 +6,29 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.kashif.cameraK.compose.CameraKScreen
 import com.kashif.cameraK.compose.rememberCameraKState
 import com.kashif.cameraK.permissions.providePermissions
 import com.kashif.qrscannerplugin.rememberQRScannerPlugin
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Composable
 actual fun BarcodeScannerScreen(onBarcodeScanned: (String) -> Unit) {
     val permissions = providePermissions()
     var hasCameraPermission by remember { mutableStateOf(permissions.hasCameraPermission()) }
+    val coroutineScope = rememberCoroutineScope()
 
     if (!hasCameraPermission) {
         permissions.RequestCameraPermission(
-            onGranted = { hasCameraPermission = true },
+            onGranted = {
+                // AVCaptureDevice's completion handler runs on a background queue;
+                // mutating Compose state off the main thread crashes the app on iOS.
+                coroutineScope.launch(Dispatchers.Main) { hasCameraPermission = true }
+            },
             onDenied = {}
         )
         return
@@ -28,7 +36,7 @@ actual fun BarcodeScannerScreen(onBarcodeScanned: (String) -> Unit) {
 
     val qrScannerPlugin = rememberQRScannerPlugin()
     val cameraState by rememberCameraKState(
-        setupPlugins = { stateHolder -> qrScannerPlugin.attachToStateHolder(stateHolder) }
+        setupPlugins = { holder -> qrScannerPlugin.attachToStateHolder(holder) }
     )
 
     LaunchedEffect(qrScannerPlugin) {

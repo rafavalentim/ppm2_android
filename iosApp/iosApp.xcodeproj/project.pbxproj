@@ -12,11 +12,11 @@
 
 /* Begin PBXFileReference section */
 		D723D5C42E70B31A00795DAB /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		E21627C863B00CC414E8C86B /* Ppm_kmp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ppm_kmp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E21627C863B00CC414E8C86B /* ppmkmp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ppmkmp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		066E1BFAF7F7F86E913BAFEB /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		066E1BFAF7F7F86E913BAFEB /* Exceptions for "iosApp" folder in "iosApp" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -34,7 +34,7 @@
 		D6FB0DFF392684D9C75E6D20 /* iosApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				066E1BFAF7F7F86E913BAFEB /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
+				066E1BFAF7F7F86E913BAFEB /* Exceptions for "iosApp" folder in "iosApp" target */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -56,7 +56,7 @@
 		7B228DED5A702CABF260BA40 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E21627C863B00CC414E8C86B /* Ppm_kmp.app */,
+				E21627C863B00CC414E8C86B /* ppmkmp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -102,7 +102,7 @@
 			packageProductDependencies = (
 			);
 			productName = iosApp;
-			productReference = E21627C863B00CC414E8C86B /* Ppm_kmp.app */;
+			productReference = E21627C863B00CC414E8C86B /* ppmkmp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -191,10 +191,15 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9HW2FMHM2Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iosApp/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Usamos a câmera para capturar fotos/vídeos dentro do app.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Usamos sua localização para recursos próximos em tempo real.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Usamos o microfone para gravar áudio nos vídeos.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Precisamos salvar imagens/vídeos na sua biblioteca.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Precisamos acessar sua biblioteca para selecionar/guardar mídias.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -204,6 +209,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.correios.ppm.ppmkmp;
+				PRODUCT_NAME = ppmkmp;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -342,10 +349,15 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "${TEAM_ID}";
+				DEVELOPMENT_TEAM = 9HW2FMHM2Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iosApp/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Usamos a câmera para capturar fotos/vídeos dentro do app.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Usamos sua localização para recursos próximos em tempo real.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Usamos o microfone para gravar áudio nos vídeos.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Precisamos salvar imagens/vídeos na sua biblioteca.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Precisamos acessar sua biblioteca para selecionar/guardar mídias.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -355,6 +367,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.correios.ppm.ppmkmp;
+				PRODUCT_NAME = ppmkmp;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

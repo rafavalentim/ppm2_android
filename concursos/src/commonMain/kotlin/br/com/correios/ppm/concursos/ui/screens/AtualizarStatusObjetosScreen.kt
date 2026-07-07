@@ -1,5 +1,6 @@
 package br.com.correios.ppm.concursos.ui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -50,9 +51,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
 import br.com.correios.ppm.concursos.presentation.AtualizaStatusObjetosViewModel
 import br.com.correios.ppm.ui.components.LoadingScreen
 import br.com.correios.ppm.ui.components.UiEvent
@@ -147,7 +148,8 @@ fun AtualizaStatusObjetosScreenContent(viewModel: AtualizaStatusObjetosViewModel
     var showTimePicker by remember { mutableStateOf(false) }
     var expandedTipoOperacao by remember { mutableStateOf(false) }
 
-    Column(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
 
         Row(modifier = Modifier.fillMaxWidth()) {
             OutlinedTextField(
@@ -268,25 +270,39 @@ fun AtualizaStatusObjetosScreenContent(viewModel: AtualizaStatusObjetosViewModel
         ) {
             Text("Atualizar")
         }
-    }
+        }
 
-    if (showScanner) {
-        Dialog(onDismissRequest = { viewModel.onShowBarcodeChanged(false) }) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Box(modifier = Modifier.size(300.dp)) {
-                    BarcodeScannerScreen(
-                        onBarcodeScanned = {
-                            viewModel.onCodigoObjetoChange(it)
-                            viewModel.onShowBarcodeChanged(false)
-                        }
+        // Rendered as a plain full-screen overlay (not a Dialog/Popup): on iOS, Compose Multiplatform
+        // cannot host a UIKitViewController (which is how CameraK renders the camera preview) inside
+        // a Dialog/Popup — it throws "UIKitViewController cannot be used within Popups or Dialogs"
+        // and crashes the app.
+        if (showScanner) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black.copy(alpha = 0.85f)),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Box(modifier = Modifier.size(300.dp)) {
+                        BarcodeScannerScreen(
+                            onBarcodeScanned = {
+                                viewModel.onCodigoObjetoChange(it)
+                                viewModel.onShowBarcodeChanged(false)
+                            }
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = "Afaste um pouco o aparelho até a imagem focar",
+                        color = Color.White,
+                        modifier = Modifier.padding(horizontal = 16.dp)
                     )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    TextButton(onClick = { viewModel.onShowBarcodeChanged(false) }) {
+                        Text("Cancelar", color = Color.White)
+                    }
                 }
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "Afaste um pouco o aparelho até a imagem focar",
-                    color = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.padding(horizontal = 16.dp)
-                )
             }
         }
     }
