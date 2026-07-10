@@ -14,7 +14,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9705486E184728183F276EDF"
-               BuildableName = "Ppmkmp.app"
+               BuildableName = "ppmkmp.app"
                BlueprintName = "iosApp"
                ReferencedContainer = "container:iosApp.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9705486E184728183F276EDF"
-            BuildableName = "Ppmkmp.app"
+            BuildableName = "ppmkmp.app"
             BlueprintName = "iosApp"
             ReferencedContainer = "container:iosApp.xcodeproj">
          </BuildableReference>
