@@ -42,4 +42,23 @@ class LoginRepository(
             return service.autentica(raw)
     }
 
+
+
+    suspend fun getVersaoAppAtual(app: String): VersaoApp?{
+
+        var versaoApp: VersaoApp? = null
+
+        when (val r = service.getVersaoAppAtual(app)) {
+            is ApiResult.Success -> {
+
+                versaoApp = r.data
+            }
+            is ApiResult.Error -> {
+
+                println("Falhou: status=${r.status} msg=${r.message}\n${r.payload}")
+            }
+        }
+        return versaoApp
+    }
+
 }

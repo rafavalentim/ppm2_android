@@ -1,7 +1,10 @@
 package br.com.correios.ppm.splash.presentation
 
+import br.com.correios.ppm.AppInfo
+import br.com.correios.ppm.AppUpdater
 import br.com.correios.ppm.BaseViewModel
 import br.com.correios.ppm.login.application.LoginUseCase
+import br.com.correios.ppm.login.data.VersaoApp
 import br.com.correios.ppm.ui.components.UiEvent
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -42,8 +45,21 @@ class SplashScreenViewModel(
             }
     }
 
+    private fun verificaAtualizacao() = scope.launch {
+        val newVersion = loginUseCase.getVersaoAppAtual(AppInfo.applicationId)
+
+        if (newVersion != null && (newVersion.nuCompilacao?.toInt() ?: 0) > AppInfo.versionCode) {
+            downloadNewVersion(newVersion)
+        }
+    }
+
+    private fun downloadNewVersion(newVersion: VersaoApp) {
+        AppUpdater.baixarEInstalar(newVersion)
+    }
+
     init {
         carregarUsuarioLogado()
+        verificaAtualizacao()
     }
 
 }

@@ -6,6 +6,7 @@ import br.com.correios.ppm.login.data.AutenticacaoRaw
 import br.com.correios.ppm.login.data.LoginRepository
 import br.com.correios.ppm.login.data.TokenResponse
 import br.com.correios.ppm.login.data.UsuarioRaw
+import br.com.correios.ppm.login.data.VersaoApp
 
 class LoginUseCase(private val repo : LoginRepository) {
 
@@ -51,6 +52,12 @@ class LoginUseCase(private val repo : LoginRepository) {
         val raw = mapToAutenticacaoRaw(autenticacao)
 
         return repo.autenticar(raw)
+    }
+
+
+    suspend fun getVersaoAppAtual(appPackage: String): VersaoApp? {
+
+        return repo.getVersaoAppAtual(appPackage)
     }
 
 }

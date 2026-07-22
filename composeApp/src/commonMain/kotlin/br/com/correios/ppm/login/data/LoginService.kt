@@ -4,7 +4,6 @@ import br.com.correios.ppm.data.ApiResult
 import br.com.correios.ppm.data.requestSmart
 import io.ktor.client.HttpClient
 import io.ktor.client.request.setBody
-import io.ktor.client.request.url
 import io.ktor.http.ContentType
 import io.ktor.http.HttpMethod
 import io.ktor.http.contentType
@@ -27,12 +26,11 @@ class LoginService(private val client: HttpClient, private val baseUrl: String) 
             setBody(req)
         }
 
-//    suspend fun getVersaoAppAtual(app: String): ApiResult<VersaoApp> =
-//        client.requestSmart {
-//            url("${base}/lojaapp/v1/aplicativos/$app/versao-atual")
-//            //method = HttpMethod.Get
-//        }
-
+    suspend fun getVersaoAppAtual(app: String): ApiResult<VersaoApp> =
+        client.requestSmart(
+            baseUrl = baseUrl,
+            path = "/lojaapp/v1/aplicativos/$app/versao-atual"
+        )
 
 
 
