@@ -61,4 +61,10 @@ class LoginRepository(
         return versaoApp
     }
 
+    suspend fun downloadManifestoIos(app: String, versao: String): ApiResult<String> =
+        service.downloadManifestoIos(app, versao)
+
+    fun manifestoIosUrl(app: String, versao: String): String =
+        service.manifestoIosUrl(app, versao)
+
 }

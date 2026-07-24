@@ -3,6 +3,9 @@ package br.com.correios.ppm.splash.presentation
 import br.com.correios.ppm.AppInfo
 import br.com.correios.ppm.AppUpdater
 import br.com.correios.ppm.BaseViewModel
+import br.com.correios.ppm.PlatformType
+import br.com.correios.ppm.data.ApiResult
+import br.com.correios.ppm.getPlatform
 import br.com.correios.ppm.login.application.LoginUseCase
 import br.com.correios.ppm.login.data.VersaoApp
 import br.com.correios.ppm.ui.components.UiEvent
@@ -46,10 +49,29 @@ class SplashScreenViewModel(
     }
 
     private fun verificaAtualizacao() = scope.launch {
-        val newVersion = loginUseCase.getVersaoAppAtual(AppInfo.applicationId)
+        val bundleId = AppInfo.applicationId
+        val newVersion = loginUseCase.getVersaoAppAtual(bundleId)
 
         if (newVersion != null && (newVersion.nuCompilacao?.toInt() ?: 0) > AppInfo.versionCode) {
-            downloadNewVersion(newVersion)
+            if (getPlatform().type == PlatformType.IOS) {
+                instalarAtualizacaoIos(bundleId, newVersion)
+            } else {
+                downloadNewVersion(newVersion)
+            }
+        }
+    }
+
+    private suspend fun instalarAtualizacaoIos(bundleId: String, newVersion: VersaoApp) {
+        val versao = newVersion.nuVersao ?: return
+
+        when (loginUseCase.downloadManifestoIos(bundleId, versao)) {
+            is ApiResult.Success -> {
+                val manifestUrl = loginUseCase.manifestoIosUrl(bundleId, versao)
+                AppUpdater.instalarComManifesto(manifestUrl)
+            }
+            is ApiResult.Error -> {
+                _events.emit(UiEvent.ShowMessage("Falha ao obter manifesto de atualização ❌"))
+            }
         }
     }
 

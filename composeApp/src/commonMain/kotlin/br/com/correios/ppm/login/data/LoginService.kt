@@ -1,6 +1,7 @@
 package br.com.correios.ppm.login.data
 
 import br.com.correios.ppm.data.ApiResult
+import br.com.correios.ppm.data.requestBytes
 import br.com.correios.ppm.data.requestSmart
 import io.ktor.client.HttpClient
 import io.ktor.client.request.setBody
@@ -32,6 +33,24 @@ class LoginService(private val client: HttpClient, private val baseUrl: String) 
             path = "/lojaapp/v1/aplicativos/$app/versao-atual"
         )
 
+
+    suspend fun downloadManifestoIos(app: String, versao: String): ApiResult<String> =
+        client.requestSmart(
+            baseUrl = baseUrl,
+            path = manifestoIosPath(app, versao)
+        )
+
+    fun manifestoIosUrl(app: String, versao: String): String =
+        "$baseUrl${manifestoIosPath(app, versao)}"
+
+    private fun manifestoIosPath(app: String, versao: String): String =
+        "/aplicativos/$app/versoes/$versao/manifest.plist"
+
+    suspend fun downloadVersao(app: String, versao: String): ApiResult<ByteArray> =
+        client.requestBytes(
+            baseUrl = baseUrl,
+            path = "/aplicativos/$app/versoes/$versao/file"
+        )
 
 
 

@@ -60,4 +60,14 @@ class LoginUseCase(private val repo : LoginRepository) {
         return repo.getVersaoAppAtual(appPackage)
     }
 
+    suspend fun downloadManifestoIos(appPackage: String, versao: String): ApiResult<String> {
+
+        return repo.downloadManifestoIos(appPackage, versao)
+    }
+
+    fun manifestoIosUrl(appPackage: String, versao: String): String {
+
+        return repo.manifestoIosUrl(appPackage, versao)
+    }
+
 }

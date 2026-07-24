@@ -3,6 +3,7 @@ package br.com.correios.ppm.data
 import io.ktor.client.HttpClient
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.request
+import io.ktor.client.statement.bodyAsBytes
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpMethod
 import io.ktor.http.URLBuilder
@@ -46,6 +47,34 @@ suspend inline fun <reified T> HttpClient.requestSmart(
             else -> ApiResult.Error(resp.status.value, "Conteúdo não-JSON", text)
         }
     } else ApiResult.Error(resp.status.value, "HTTP ${resp.status}", text)
+} catch (e: Throwable) {
+    ApiResult.Error(message = e.message, cause = e)
+}
+
+suspend fun HttpClient.requestBytes(
+    baseUrl: String,
+    path: String,
+    method: HttpMethod = HttpMethod.Get,
+    block: HttpRequestBuilder.() -> Unit = {}
+): ApiResult<ByteArray> = try {
+    val resp = request {
+        url {
+            takeFrom(baseUrl)
+            encodedPath = buildString {
+                append(URLBuilder(baseUrl).encodedPath.trimEnd('/'))
+                append('/')
+                append(path.trimStart('/'))
+            }
+        }
+        this.method = method
+        block()
+    }
+    if (resp.status.isSuccess()) {
+        ApiResult.Success(resp.bodyAsBytes())
+    } else {
+        val text = runCatching { resp.bodyAsText() }.getOrNull()
+        ApiResult.Error(resp.status.value, "HTTP ${resp.status}", text)
+    }
 } catch (e: Throwable) {
     ApiResult.Error(message = e.message, cause = e)
 }
