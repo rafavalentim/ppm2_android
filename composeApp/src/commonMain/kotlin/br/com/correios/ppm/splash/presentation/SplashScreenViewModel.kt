@@ -4,6 +4,7 @@ import br.com.correios.ppm.AppInfo
 import br.com.correios.ppm.AppUpdater
 import br.com.correios.ppm.BaseViewModel
 import br.com.correios.ppm.PlatformType
+import br.com.correios.ppm.UpdateDownloadStatus
 import br.com.correios.ppm.data.ApiResult
 import br.com.correios.ppm.getPlatform
 import br.com.correios.ppm.login.application.LoginUseCase
@@ -24,6 +25,12 @@ class SplashScreenViewModel(
     private val _events = MutableSharedFlow<UiEvent>(extraBufferCapacity = 1)
     val events: SharedFlow<UiEvent> = _events
     val uiState: StateFlow<UsuarioUiState> = _uiState.asStateFlow()
+
+    private val _updateAvailable = MutableStateFlow<VersaoApp?>(null)
+    val updateAvailable: StateFlow<VersaoApp?> = _updateAvailable.asStateFlow()
+
+    private val _downloadStatus = MutableStateFlow<UpdateDownloadStatus?>(null)
+    val downloadStatus: StateFlow<UpdateDownloadStatus?> = _downloadStatus.asStateFlow()
 
     fun carregarUsuarioLogado() = scope.launch {
         _uiState.value = UsuarioUiState.Loading
@@ -56,27 +63,48 @@ class SplashScreenViewModel(
             if (getPlatform().type == PlatformType.IOS) {
                 instalarAtualizacaoIos(bundleId, newVersion)
             } else {
-                downloadNewVersion(newVersion)
+                _updateAvailable.value = newVersion
             }
         }
     }
 
     private suspend fun instalarAtualizacaoIos(bundleId: String, newVersion: VersaoApp) {
-        val versao = newVersion.nuVersao ?: return
+        val versao = newVersion.nuVersao
+        if (versao == null) {
+            _downloadStatus.value = UpdateDownloadStatus.Failed("Versão da atualização não informada")
+            return
+        }
 
-        when (loginUseCase.downloadManifestoIos(bundleId, versao)) {
+        when (val resultado = loginUseCase.downloadManifestoIos(bundleId, versao)) {
             is ApiResult.Success -> {
                 val manifestUrl = loginUseCase.manifestoIosUrl(bundleId, versao)
                 AppUpdater.instalarComManifesto(manifestUrl)
             }
             is ApiResult.Error -> {
-                _events.emit(UiEvent.ShowMessage("Falha ao obter manifesto de atualização ❌"))
+                _downloadStatus.value = UpdateDownloadStatus.Failed(
+                    "Falha ao obter manifesto de atualização (${resultado.status ?: "sem conexão"})"
+                )
             }
         }
     }
 
+    fun confirmarAtualizacao() {
+        val newVersion = _updateAvailable.value ?: return
+        _updateAvailable.value = null
+        downloadNewVersion(newVersion)
+    }
+
+    fun dismissDownloadStatus() {
+        _downloadStatus.value = null
+    }
+
     private fun downloadNewVersion(newVersion: VersaoApp) {
-        AppUpdater.baixarEInstalar(newVersion)
+        AppUpdater.baixarEInstalar(newVersion) { status ->
+            _downloadStatus.value = status
+            if (status is UpdateDownloadStatus.Failed) {
+                _events.tryEmit(UiEvent.ShowMessage("Falha ao atualizar: ${status.message} ❌"))
+            }
+        }
     }
 
     init {

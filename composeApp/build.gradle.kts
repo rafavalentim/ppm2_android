@@ -36,7 +36,22 @@ kotlin {
     
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
-        browser()
+        browser {
+            // Proxy de dev: evita CORS ao chamar a API dos Correios direto do browser em localhost.
+            // Só afeta o webpack-dev-server (wasmJsBrowserDevelopmentRun); não existe em Android/iOS/JVM.
+            commonWebpackConfig {
+                devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
+                    proxy = mutableListOf(
+                        KotlinWebpackConfig.DevServer.Proxy(
+                            context = mutableListOf("/v1", "/lojaapp", "/aplicativos", "/rest"),
+                            target = "https://applogisticahom.correios.com.br",
+                            changeOrigin = true,
+                            secure = true
+                        )
+                    )
+                }
+            }
+        }
         binaries.executable()
     }
 
