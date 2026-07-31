@@ -144,6 +144,10 @@ kotlin {
             // Se o seu setup usar webpack, a doc recomenda também:
             implementation(devNpm("copy-webpack-plugin", "9.1.0"))
 
+            // Banco de fusos horários IANA usado pelo kotlinx-datetime no alvo wasmJs/JS.
+            // Sem ele, TimeZone.of("America/Sao_Paulo") lança IllegalTimeZoneException.
+            implementation(npm("@js-joda/timezone", "2.23.0"))
+
         }
     }
 }

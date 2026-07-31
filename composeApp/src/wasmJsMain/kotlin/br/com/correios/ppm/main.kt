@@ -8,6 +8,7 @@ import kotlinx.browser.document
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
+    initJsJodaTimeZone()
     initKoin()
     ComposeViewport(document.body!!) {
         App()
